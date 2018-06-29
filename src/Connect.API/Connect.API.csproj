@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Conversations\" />
+    <Folder Include="Features\Reports\" />
+    <Folder Include="Features\Profiles\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
