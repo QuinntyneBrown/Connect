@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="codeGeneratorSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="codeGeneratorSettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Connect.Core\Connect.Core.csproj" />
+    <ProjectReference Include="..\..\src\Connect.Infrastructure\Connect.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Connect.API\Connect.API.csproj" />
+  </ItemGroup>
+
+</Project>
