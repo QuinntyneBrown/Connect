@@ -21,7 +21,7 @@ namespace Connect.API
         {
             public static void Seed(AppDbContext context)
             {
-                if (context.Users.IgnoreQueryFilters().FirstOrDefault(x => x.Username == "quinntynebrown@gmail.com") == null)
+                if (context.Users.FirstOrDefault(x => x.Username == "quinntynebrown@gmail.com") == null)
                 {
                     var user = new User()
                     {
@@ -32,6 +32,16 @@ namespace Connect.API
                     context.Users.Add(user);
                 }
                 
+                if (context.Users.FirstOrDefault(x => x.Username == "quinntyne@hotmail.com") == null)
+                {
+                    var user = new User()
+                    {
+                        Username = "quinntyne@hotmail.com"
+                    };
+                    user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");
+
+                    context.Users.Add(user);
+                }
                 context.SaveChanges();
             }
         }

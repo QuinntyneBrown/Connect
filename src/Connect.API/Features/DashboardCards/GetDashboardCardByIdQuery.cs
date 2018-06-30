@@ -1,8 +1,8 @@
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
 using Connect.Core.Interfaces;
 using FluentValidation;
+using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Connect.API.Features.DashboardCards
 {

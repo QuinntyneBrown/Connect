@@ -1,11 +1,11 @@
+using Connect.Core.Exceptions;
+using Connect.Core.Identity;
+using Connect.Core.Interfaces;
+using Connect.Core.Models;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Connect.Core.Models;
-using Connect.Core.Exceptions;
-using Connect.Core.Identity;
-using Connect.Core.Interfaces;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

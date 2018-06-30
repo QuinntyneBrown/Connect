@@ -14,6 +14,7 @@ namespace Connect.Core.Interfaces
         DbSet<Dashboard> Dashboards { get; set; }
         DbSet<DashboardCard> DashboardCards { get; set; }
         DbSet<DigitalAsset> DigitalAssets { get; set; }
+        DbSet<DomainEvent> DomainEvents { get; set; }
         DbSet<EntityVersion> EntityVersions { get; set; }                                        
         DbSet<Profile> Profiles { get; set; }
         DbSet<ProfileType> ProfileTypes { get; set; }

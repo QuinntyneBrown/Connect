@@ -10,6 +10,5 @@ namespace Connect.Core.Models
         public string Name { get; set; }
         public ProfileType ProfileType { get; set; }
         public User User { get; set; }
-
     }
 }

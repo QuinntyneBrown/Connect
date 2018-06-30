@@ -6,12 +6,13 @@
 
   <ItemGroup>
     <Folder Include="Features\Conversations\" />
-    <Folder Include="Features\Reports\" />
     <Folder Include="Features\Profiles\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="4.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 

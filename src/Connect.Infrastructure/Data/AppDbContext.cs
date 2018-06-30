@@ -1,19 +1,18 @@
-﻿using Connect.Core.Models;
+﻿using Connect.Core.Common;
 using Connect.Core.Interfaces;
+using Connect.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Collections.Generic;
-using Connect.Core.Common;
 
 namespace Connect.Infrastructure.Data
-{    
+{
     public class AppDbContext : DbContext, IAppDbContext
     {
         private readonly IMediator _mediator;
@@ -34,6 +33,7 @@ namespace Connect.Infrastructure.Data
         public DbSet<CardLayout> CardLayouts { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<DashboardCard> DashboardCards { get; set; }
+        public DbSet<DomainEvent> DomainEvents { get; set;  }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
         public DbSet<EntityVersion> EntityVersions { get; set; }
         public DbSet<Profile> Profiles { get; set; }
