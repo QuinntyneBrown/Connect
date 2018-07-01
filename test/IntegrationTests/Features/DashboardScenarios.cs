@@ -1,8 +1,6 @@
 using Connect.API.Features.Dashboards;
-using Connect.Core.Models;
 using Connect.Core.Extensions;
 using Connect.Core.Interfaces;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;

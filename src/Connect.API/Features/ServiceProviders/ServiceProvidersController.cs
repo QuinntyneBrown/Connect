@@ -15,7 +15,7 @@ namespace Connect.API.Features.ServiceProviders
         public ServiceProvidersController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
-        public async Task<ActionResult<SaveServiceProviderCommand.Response>> Save(SaveServiceProviderCommand.Request request)
+        public async Task<ActionResult<CreateServiceProviderCommand.Response>> Create(CreateServiceProviderCommand.Request request)
             => await _mediator.Send(request);
         
         [HttpDelete("{serviceProviderId}")]

@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Connect.API.Features.ServiceProviders
 {
-    public class SaveServiceProviderCommand
+    public class CreateServiceProviderCommand
     {
         public class Validator: AbstractValidator<Request> {
             public Validator()

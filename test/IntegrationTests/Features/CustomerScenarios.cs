@@ -20,7 +20,7 @@ namespace IntegrationTests.Features
                 IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
                 var response = await server.CreateClient()
-                    .PostAsAsync<SaveCustomerCommand.Request, SaveCustomerCommand.Response>(Post.Customers, new SaveCustomerCommand.Request() {
+                    .PostAsAsync<CreateCustomerCommand.Request, CreateCustomerCommand.Response>(Post.Customers, new CreateCustomerCommand.Request() {
                         Customer = new CustomerApiModel()
                         {
                             Name = "Name",
@@ -69,7 +69,7 @@ namespace IntegrationTests.Features
                 Assert.True(getByIdResponse.Customer.CustomerId != default(int));
 
                 var saveResponse = await server.CreateClient()
-                    .PostAsAsync<SaveCustomerCommand.Request, SaveCustomerCommand.Response>(Post.Customers, new SaveCustomerCommand.Request()
+                    .PostAsAsync<CreateCustomerCommand.Request, CreateCustomerCommand.Response>(Post.Customers, new CreateCustomerCommand.Request()
                     {
                         Customer = getByIdResponse.Customer
                     });

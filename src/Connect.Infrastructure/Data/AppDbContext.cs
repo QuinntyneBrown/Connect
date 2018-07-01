@@ -91,12 +91,48 @@ namespace Connect.Infrastructure.Data
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {            
+        {
+            modelBuilder.Entity<Card>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<CardLayout>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Conversation>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Customer>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Dashboard>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<DashboardCard>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<DigitalAsset>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Order>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Report>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<ServiceProvider>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
             modelBuilder.Entity<User>()
                 .HasQueryFilter(e => !e.IsDeleted);
-            
+
             modelBuilder.Entity<EntityVersion>()
                 .HasKey(et => new { et.EntityId, et.Version, et.EntityName });
+
+            modelBuilder.Entity<OrderItem>()
+                .HasKey(e => new { e.OrderId, e.ProductId });
 
             modelBuilder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });

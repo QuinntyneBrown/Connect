@@ -20,7 +20,7 @@ namespace IntegrationTests.Features
                 IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
                 var response = await server.CreateClient()
-                    .PostAsAsync<SaveServiceProviderCommand.Request, SaveServiceProviderCommand.Response>(Post.ServiceProviders, new SaveServiceProviderCommand.Request() {
+                    .PostAsAsync<CreateServiceProviderCommand.Request, CreateServiceProviderCommand.Response>(Post.ServiceProviders, new CreateServiceProviderCommand.Request() {
                         ServiceProvider = new ServiceProviderApiModel()
                         {
                             Name = "Name",
@@ -69,7 +69,7 @@ namespace IntegrationTests.Features
                 Assert.True(getByIdResponse.ServiceProvider.ServiceProviderId != default(int));
 
                 var saveResponse = await server.CreateClient()
-                    .PostAsAsync<SaveServiceProviderCommand.Request, SaveServiceProviderCommand.Response>(Post.ServiceProviders, new SaveServiceProviderCommand.Request()
+                    .PostAsAsync<CreateServiceProviderCommand.Request, CreateServiceProviderCommand.Response>(Post.ServiceProviders, new CreateServiceProviderCommand.Request()
                     {
                         ServiceProvider = getByIdResponse.ServiceProvider
                     });

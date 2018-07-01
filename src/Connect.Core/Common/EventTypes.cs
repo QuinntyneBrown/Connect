@@ -17,6 +17,11 @@
 
         }
 
+        public static class Customers
+        {
+            public const string CustomerCreated = nameof(CustomerCreated);
+        }
+
         public static class DashboardCards
         {
 
@@ -29,7 +34,7 @@
 
         public static class DigitalAssets
         {
-
+            public const string DigitalAssetUploaded = nameof(DigitalAssetUploaded);
         }
         
         public static class Identity {
@@ -52,6 +57,12 @@
         {
             public const string CreditsPurchased = nameof(CreditsPurchased);
             public const string CreditsConsumed = nameof(CreditsConsumed);
+            public const string ProfileCreated = nameof(ProfileCreated);
+        }
+
+        public static class ServiceProviders
+        {
+            public const string ServiceProviderCreated = nameof(ServiceProviderCreated);
         }
 
         public static class Reports

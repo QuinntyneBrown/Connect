@@ -15,7 +15,7 @@ namespace Connect.API.Features.Customers
         public CustomersController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
-        public async Task<ActionResult<SaveCustomerCommand.Response>> Save(SaveCustomerCommand.Request request)
+        public async Task<ActionResult<CreateCustomerCommand.Response>> Create(CreateCustomerCommand.Request request)
             => await _mediator.Send(request);
         
         [HttpDelete("{customerId}")]
