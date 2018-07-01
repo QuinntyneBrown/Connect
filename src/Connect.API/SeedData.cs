@@ -42,6 +42,7 @@ namespace Connect.API
 
                     context.Users.Add(user);
                 }
+
                 context.SaveChanges();
             }
         }
@@ -51,6 +52,26 @@ namespace Connect.API
             public static void Seed(AppDbContext context)
             {
 
+                if (context.ProfileTypes.FirstOrDefault(x => x.Name == "Default") == null)
+                {
+                    var profileType = new ProfileType()
+                    {
+                        Name = "Default"
+                    };
+
+                    context.ProfileTypes.Add(profileType);
+                }
+
+                if (context.ProfileTypes.FirstOrDefault(x => x.Name == "Personality") == null)
+                {
+                    var profileType = new ProfileType()
+                    {
+                        Name = "Peronality"
+                    };
+                    
+                    context.ProfileTypes.Add(profileType);
+                }
+                
                 context.SaveChanges();
             }
         }

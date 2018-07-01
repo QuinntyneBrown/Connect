@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Conversations\" />
-    <Folder Include="Features\Profiles\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
