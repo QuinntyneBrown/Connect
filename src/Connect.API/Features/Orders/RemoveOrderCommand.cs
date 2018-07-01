@@ -4,22 +4,23 @@ using System.Threading.Tasks;
 using System.Threading;
 using Connect.Core.Models;
 using Connect.Core.Interfaces;
+using Connect.Core.DomainEvents;
 
-namespace Connect.API.Features.Reports
+namespace Connect.API.Features.Orders
 {
-    public class RemoveReportCommand
+    public class RemoveOrderCommand
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.ReportId).NotEqual(0);
+                RuleFor(request => request.OrderId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public int ReportId { get; set; }
+            public int OrderId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,9 +31,9 @@ namespace Connect.API.Features.Reports
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                var report = await _context.Reports.FindAsync(request.ReportId);
-                _context.Reports.Remove(report);
-                //report.RaiseDomainEvent(new ReportRemovedEvent.DomainEvent(report.ReportId));
+                var order = await _context.Orders.FindAsync(request.OrderId);
+                _context.Orders.Remove(order);
+                order.RaiseDomainEvent(new OrderCancelled(order.OrderId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }

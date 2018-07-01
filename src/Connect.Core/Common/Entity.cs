@@ -6,13 +6,13 @@ namespace Connect.Core.Common
 {
     public class Entity
     {
-        public Entity() => _domainEvents = new List<INotification>();
+        public Entity() => _domainEvents = new List<DomainEvent>();
         public DateTime CreatedOn { get; set; }
         public DateTime LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
-        private List<INotification> _domainEvents;
-        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents.AsReadOnly();
-        public void RaiseDomainEvent(INotification eventItem) => _domainEvents.Add(eventItem);
+        private List<DomainEvent> _domainEvents;
+        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+        public void RaiseDomainEvent(DomainEvent eventItem) => _domainEvents.Add(eventItem);
         public void ClearEvents() => _domainEvents.Clear();
         public int Version { get; set; }
     }

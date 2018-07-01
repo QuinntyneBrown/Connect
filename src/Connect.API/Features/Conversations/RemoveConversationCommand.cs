@@ -31,7 +31,7 @@ namespace Connect.API.Features.Conversations
             {
                 var conversation = await _context.Conversations.FindAsync(request.ConversationId);
                 _context.Conversations.Remove(conversation);
-                conversation.RaiseDomainEvent(new ConversationRemovedEvent.DomainEvent(conversation.ConversationId));
+
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }

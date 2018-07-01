@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <Folder Include="Features\Conversations\" />
+    <Folder Include="Features\Customers\" />
+    <Folder Include="Features\ServiceProviders\" />
+    <Folder Include="Features\Products\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

@@ -1,28 +1,29 @@
+using Connect.Core.DomainEvents;
+using Connect.Core.Interfaces;
+using Connect.Core.Models;
 using FluentValidation;
 using MediatR;
-using System.Threading.Tasks;
 using System.Threading;
-using Connect.Core.Models;
-using Connect.Core.Interfaces;
+using System.Threading.Tasks;
 
-namespace Connect.API.Features.Reports
+namespace Connect.API.Features.Orders
 {
-    public class SaveReportCommand
+    public class CreateOrderCommand
     {
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Report.ReportId).NotNull();
+                RuleFor(request => request.Order.OrderId).NotNull();
             }
         }
 
         public class Request : IRequest<Response> {
-            public ReportApiModel Report { get; set; }
+            public OrderApiModel Order { get; set; }
         }
 
         public class Response
         {			
-            public int ReportId { get; set; }
+            public int OrderId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -33,15 +34,15 @@ namespace Connect.API.Features.Reports
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var report = await _context.Reports.FindAsync(request.Report.ReportId);
+                var order = new Order();
 
-                if (report == null) _context.Reports.Add(report = new Report());
-
-                //report.RaiseDomainEvent(new ReportSavedEvent.DomainEvent(report));
+                _context.Orders.Add(order);
+                
+                order.RaiseDomainEvent(new OrderCreated(order));
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { ReportId = report.ReportId };
+                return new Response() { OrderId = order.OrderId };
             }
         }
     }

@@ -1,25 +1,26 @@
+using Connect.Core.DomainEvents;
+using Connect.Core.Interfaces;
+using Connect.Core.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Connect.Core.Models;
-using Connect.Core.Interfaces;
 
-namespace Connect.API.Features.Reports
+namespace Connect.API.Features.ServiceProviders
 {
-    public class RemoveReportCommand
+    public class RemoveServiceProviderCommand
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.ReportId).NotEqual(0);
+                RuleFor(request => request.ServiceProviderId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public int ReportId { get; set; }
+            public int ServiceProviderId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,9 +31,9 @@ namespace Connect.API.Features.Reports
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                var report = await _context.Reports.FindAsync(request.ReportId);
-                _context.Reports.Remove(report);
-                //report.RaiseDomainEvent(new ReportRemovedEvent.DomainEvent(report.ReportId));
+                var serviceProvider = await _context.ServiceProviders.FindAsync(request.ServiceProviderId);
+                _context.ServiceProviders.Remove(serviceProvider);
+                //serviceProvider.RaiseDomainEvent(new ServiceProviderRemoved(serviceProvider.ServiceProviderId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }

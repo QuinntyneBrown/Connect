@@ -31,14 +31,18 @@ namespace Connect.Infrastructure.Data
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardLayout> CardLayouts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<DashboardCard> DashboardCards { get; set; }
         public DbSet<DomainEvent> DomainEvents { get; set;  }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
         public DbSet<EntityVersion> EntityVersions { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<ProfileType> ProfileTypes { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<ServiceProvider> ServiceProviders { get; set; }
         public DbSet<User> Users { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
@@ -75,8 +79,12 @@ namespace Connect.Infrastructure.Data
 
                 foreach (var domainEvent in events)
                 {
+                    DomainEvents.Add(domainEvent);
+
                     await _mediator.Publish(domainEvent, cancellationToken);
                 }
+
+                base.SaveChanges();
             }
 
             return result;

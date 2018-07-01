@@ -6,15 +6,15 @@ using Connect.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Connect.API.Features.Profiles
+namespace Connect.API.Features.Products
 {
-    public class GetProfilesQuery
+    public class GetProductsQuery
     {
         public class Request : IRequest<Response> { }
 
         public class Response
         {
-            public IEnumerable<ProfileApiModel> Profiles { get; set; }
+            public IEnumerable<ProductApiModel> Products { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,9 +26,7 @@ namespace Connect.API.Features.Profiles
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Profiles = await _context.Profiles
-                    .Include(x => x.ProfileType)
-                    .Select(x => ProfileApiModel.FromProfile(x)).ToListAsync()
+                    Products = await _context.Products.Select(x => ProductApiModel.FromProduct(x)).ToListAsync()
                 };
         }
     }

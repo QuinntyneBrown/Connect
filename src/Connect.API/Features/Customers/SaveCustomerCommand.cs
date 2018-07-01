@@ -1,28 +1,29 @@
+using Connect.Core.DomainEvents;
+using Connect.Core.Interfaces;
+using Connect.Core.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Connect.Core.Models;
-using Connect.Core.Interfaces;
 
-namespace Connect.API.Features.Conversations
+namespace Connect.API.Features.Customers
 {
-    public class SaveConversationCommand
+    public class SaveCustomerCommand
     {
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Conversation.ConversationId).NotNull();
+                RuleFor(request => request.Customer.CustomerId).NotNull();
             }
         }
 
         public class Request : IRequest<Response> {
-            public ConversationApiModel Conversation { get; set; }
+            public CustomerApiModel Customer { get; set; }
         }
 
         public class Response
         {			
-            public int ConversationId { get; set; }
+            public int CustomerId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -33,16 +34,17 @@ namespace Connect.API.Features.Conversations
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var conversation = await _context.Conversations.FindAsync(request.Conversation.ConversationId);
+                var customer = await _context.Customers.FindAsync(request.Customer.CustomerId);
 
-                if (conversation == null) _context.Conversations.Add(conversation = new Conversation());
+                if (customer == null) _context.Customers.Add(customer = new Customer());
 
-                
-                //conversation.RaiseDomainEvent(new ConversationSavedEvent.DomainEvent(conversation));
+                customer.Name = request.Customer.Name;
+
+                //customer.RaiseDomainEvent(new CustomerSaved(customer));
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { ConversationId = conversation.ConversationId };
+                return new Response() { CustomerId = customer.CustomerId };
             }
         }
     }

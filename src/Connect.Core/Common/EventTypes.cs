@@ -37,9 +37,21 @@
             public const string UserSignedOut = nameof(UserSignedOut);
         }
 
+        public static class Orders
+        {
+            public const string OrderCreated = nameof(OrderCreated);
+            public const string OrderCancelled = nameof(OrderCancelled);
+        }
+
+        public static class Products
+        {
+            public const string ProductPurchased = nameof(ProductPurchased);
+        }
+
         public static class Profiles
         {
-
+            public const string CreditsPurchased = nameof(CreditsPurchased);
+            public const string CreditsConsumed = nameof(CreditsConsumed);
         }
 
         public static class Reports

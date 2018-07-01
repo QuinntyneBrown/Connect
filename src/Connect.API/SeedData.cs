@@ -52,26 +52,36 @@ namespace Connect.API
             public static void Seed(AppDbContext context)
             {
 
-                if (context.ProfileTypes.FirstOrDefault(x => x.Name == "Default") == null)
+                if (context.ProfileTypes.FirstOrDefault(x => x.Name == "Customer") == null)
                 {
                     var profileType = new ProfileType()
                     {
-                        Name = "Default"
+                        Name = "Customer"
                     };
 
                     context.ProfileTypes.Add(profileType);
                 }
 
-                if (context.ProfileTypes.FirstOrDefault(x => x.Name == "Personality") == null)
+                if (context.ProfileTypes.FirstOrDefault(x => x.Name == "ServiceProvider") == null)
                 {
                     var profileType = new ProfileType()
                     {
-                        Name = "Peronality"
+                        Name = "ServiceProvider"
                     };
                     
                     context.ProfileTypes.Add(profileType);
                 }
                 
+                context.SaveChanges();
+            }
+        }
+
+        internal class ProductConfiguration
+        {
+            public static void Seed(AppDbContext context)
+            {
+
+
                 context.SaveChanges();
             }
         }
