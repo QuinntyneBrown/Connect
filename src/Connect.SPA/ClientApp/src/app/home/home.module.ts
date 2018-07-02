@@ -22,4 +22,4 @@ const providers = [
   ],
   providers,
 })
-export class HomesModule { }
+export class HomeModule { }
