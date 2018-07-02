@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Connect.Core
 {
@@ -29,11 +30,8 @@ namespace Connect.Core
 
         public IEnumerable<string> GetConnections(T key)
         {
-            HashSet<string> clientConnections;
-            if (_connections.TryGetValue(key, out clientConnections))
-            {
+            if (_connections.TryGetValue(key, out HashSet<string> clientConnections))
                 return clientConnections;
-            }
 
             return Enumerable.Empty<string>();
         }
@@ -42,20 +40,15 @@ namespace Connect.Core
         {
             lock (_connections)
             {
-                HashSet<string> clientConnections;
-                if (!_connections.TryGetValue(key, out clientConnections))
-                {
+                if (!_connections.TryGetValue(key, out HashSet<string> clientConnections))
                     return;
-                }
 
                 lock (clientConnections)
                 {
                     clientConnections.Remove(connectionId);
 
                     if (clientConnections.Count == 0)
-                    {
                         _connections.Remove(key);
-                    }
                 }
             }
         }

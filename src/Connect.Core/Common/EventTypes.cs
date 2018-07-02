@@ -16,6 +16,7 @@
         {
             public const string ConversationRequested = nameof(ConversationRequested);
             public const string ConversationAccepted = nameof(ConversationAccepted);
+            public const string MessageRead = nameof(MessageRead);
         }
 
         public static class Customers

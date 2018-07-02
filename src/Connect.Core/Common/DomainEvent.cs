@@ -5,13 +5,12 @@ namespace Connect.Core.Common
 {
     public class DomainEvent: INotification
     {
-        public int DomainEventId { get; set; }
+        public Guid DomainEventId { get; set; }
         public string EventType { get; set; }
-        public string Payload { get; set; }
+        public dynamic Payload { get; set; }
         public string Subject { get; set; }
         public DateTime EventTime { get; set; }
         public string DataVersion { get; set; }
-        public object EventData { get; set; }
 
     }
 }

@@ -73,15 +73,16 @@ namespace Connect.Infrastructure.Data
 
             foreach (var entity in domainEventEntities)
             {
-                var events = entity.DomainEvents.ToArray();
+                var events = entity.DomainEvents
+                    .ToArray();
 
                 entity.ClearEvents();
 
-                foreach (var domainEvent in events)
+                foreach (var @event in events)
                 {
-                    DomainEvents.Add(domainEvent);
+                    DomainEvents.Add(@event);
 
-                    await _mediator.Publish(domainEvent, cancellationToken);
+                    await _mediator.Publish(@event, cancellationToken);
                 }
 
                 base.SaveChanges();

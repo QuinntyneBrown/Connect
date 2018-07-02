@@ -1,5 +1,5 @@
+using Connect.API.IntegrationEvents;
 using Connect.Core;
-using Connect.Core.DomainEvents;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;
@@ -15,8 +15,7 @@ namespace Connect.API.Features.Conversations
             => _hubContext = hubContext;
 
         public async Task Handle(ConversationAccepted @event, CancellationToken cancellationToken)
-        {
-            await _hubContext.Clients.All.SendAsync("events", @event, cancellationToken);
-        }
+            => await _hubContext.Clients.All
+                .SendAsync("events", @event, cancellationToken);
     }
 }

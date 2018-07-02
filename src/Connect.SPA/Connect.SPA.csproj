@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\conversations\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 
