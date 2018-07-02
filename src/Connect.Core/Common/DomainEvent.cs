@@ -11,5 +11,7 @@ namespace Connect.Core.Common
         public string Subject { get; set; }
         public DateTime EventTime { get; set; }
         public string DataVersion { get; set; }
+        public object EventData { get; set; }
+
     }
 }

@@ -14,7 +14,8 @@
 
         public static class Conversations
         {
-
+            public const string ConversationRequested = nameof(ConversationRequested);
+            public const string ConversationAccepted = nameof(ConversationAccepted);
         }
 
         public static class Customers

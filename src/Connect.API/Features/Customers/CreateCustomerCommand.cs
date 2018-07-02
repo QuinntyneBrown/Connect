@@ -34,13 +34,15 @@ namespace Connect.API.Features.Customers
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var customer = await _context.Customers.FindAsync(request.Customer.CustomerId);
+                var customer = new Customer();
 
-                if (customer == null) _context.Customers.Add(customer = new Customer());
+                if (customer == null) _context.Customers.Add(customer);
+
+                customer.ProfileId = request.Customer.ProfileId;
 
                 customer.Name = request.Customer.Name;
-
-                //customer.RaiseDomainEvent(new CustomerSaved(customer));
+                
+                customer.RaiseDomainEvent(new CustomerCreated(customer));
 
                 await _context.SaveChangesAsync(cancellationToken);
 

@@ -9,7 +9,6 @@ namespace Connect.API.Features.Profiles
         public string Name { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public int Credits { get; set; }
         public ICollection<ProfileImageApiModel> ProfileImages { get; set; }
         = new HashSet<ProfileImageApiModel>();
         public string ProfileType { get; set; }
@@ -19,8 +18,7 @@ namespace Connect.API.Features.Profiles
             model.ProfileId = profile.ProfileId;
             model.Name = profile.Name;
             model.Firstname = profile.Firstname;
-            model.Lastname = profile.Lastname;
-            model.Credits = profile.Credits;
+            model.Lastname = profile.Lastname;            
             model.ProfileType = profile.ProfileType.Name;
             return model;
         }

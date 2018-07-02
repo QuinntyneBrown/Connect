@@ -8,8 +8,7 @@ namespace Connect.Core.Models
         public int ProfileId { get; set; }
         public int UserId { get; set; }
         public int ProfileTypeId { get; set; }
-        public string Name { get; set; }
-        public int Credits { get; set; }
+        public string Name { get; set; }        
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public ProfileType ProfileType { get; set; }

@@ -12,7 +12,7 @@ namespace Connect.Core.Models
         public int CustomerId { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public Customer Customer { get; set; }
-        public ICollection<OrderItem> OrderLineItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
         = new HashSet<OrderItem>();
     }
 }

@@ -6,13 +6,15 @@ namespace Connect.API.Features.Customers
     {        
         public int CustomerId { get; set; }
         public string Name { get; set; }
-
+        public int Credits { get; set; }
+        public int ProfileId { get; set; }
         public static CustomerApiModel FromCustomer(Customer customer)
-        {
-            var model = new CustomerApiModel();
-            model.CustomerId = customer.CustomerId;
-            model.Name = customer.Name;
-            return model;
-        }
+            => new CustomerApiModel
+            {
+                CustomerId = customer.CustomerId,
+                Name = customer.Name,
+                Credits = customer.Credits,
+                ProfileId = customer.ProfileId
+            };
     }
 }

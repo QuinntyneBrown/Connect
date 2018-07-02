@@ -24,6 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\conversations\" />
+    <Folder Include="ClientApp\src\app\core\" />
+    <Folder Include="ClientApp\src\app\customers\" />
+    <Folder Include="ClientApp\src\app\dashboards\" />
+    <Folder Include="ClientApp\src\app\login\" />
+    <Folder Include="ClientApp\src\app\orders\" />
+    <Folder Include="ClientApp\src\app\service-providers\" />
+    <Folder Include="ClientApp\src\app\shared\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 

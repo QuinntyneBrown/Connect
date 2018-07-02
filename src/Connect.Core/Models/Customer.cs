@@ -10,7 +10,7 @@ namespace Connect.Core.Models
             ProfileTypeId = (int)ProfileTypes.Customer;
         }
         public int CustomerId { get; set; }
-
+        public int Credits { get; set; }
         public ICollection<Order> Orders { get; set; }
         = new HashSet<Order>();
     }
