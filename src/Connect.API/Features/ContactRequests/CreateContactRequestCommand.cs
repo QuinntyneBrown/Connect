@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Connect.API.Features.ContactRequests
 {
-    public class SaveContactRequestCommand
+    public class CreateContactRequestCommand
     {
         public class Validator: AbstractValidator<Request> {
             public Validator()
@@ -34,9 +34,9 @@ namespace Connect.API.Features.ContactRequests
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var contactRequest = await _context.ContactRequests.FindAsync(request.ContactRequest.ContactRequestId);
+                var contactRequest = new ContactRequest();
 
-                if (contactRequest == null) _context.ContactRequests.Add(contactRequest = new ContactRequest());
+                _context.ContactRequests.Add(contactRequest);
 
                 contactRequest.Name = request.ContactRequest.Name;
 

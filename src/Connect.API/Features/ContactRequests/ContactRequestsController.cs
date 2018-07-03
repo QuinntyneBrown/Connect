@@ -5,17 +5,18 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.ContactRequests
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     [ApiController]
-    [Route("api/contactRequests")]
+    [Route("api/contactrequests")]
     public class ContactRequestsController
     {
         private readonly IMediator _mediator;
 
-        public ContactRequestsController(IMediator mediator) => _mediator = mediator;
+        public ContactRequestsController(IMediator mediator) 
+            => _mediator = mediator;
 
         [HttpPost]
-        public async Task<ActionResult<SaveContactRequestCommand.Response>> Save(SaveContactRequestCommand.Request request)
+        public async Task<ActionResult<CreateContactRequestCommand.Response>> Create(CreateContactRequestCommand.Request request)
             => await _mediator.Send(request);
         
         [HttpDelete("{contactRequestId}")]

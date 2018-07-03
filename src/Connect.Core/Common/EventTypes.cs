@@ -46,6 +46,7 @@
         public static class Identity {
             public const string UserSignedIn = nameof(UserSignedIn);
             public const string UserSignedOut = nameof(UserSignedOut);
+            public const string UserCreated = nameof(UserCreated);
         }
 
         public static class Orders

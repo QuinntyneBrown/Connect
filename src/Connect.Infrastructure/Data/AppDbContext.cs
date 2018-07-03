@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Threading;
@@ -82,6 +83,8 @@ namespace Connect.Infrastructure.Data
 
                 foreach (var @event in events)
                 {
+                    @event.Payload = JsonConvert.SerializeObject(@event.EventData);
+
                     DomainEvents.Add(@event);
 
                     await _mediator.Publish(@event, cancellationToken);

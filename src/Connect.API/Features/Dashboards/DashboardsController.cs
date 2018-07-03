@@ -43,8 +43,6 @@ namespace Connect.API.Features.Dashboards
 
         [HttpGet("{dashboardId}")]
         public async Task<ActionResult<GetDashboardByIdQuery.Response>> GetById([FromRoute]GetDashboardByIdQuery.Request request)
-            => await _mediator.Send(request);
-
-
+            => await _mediator.Send(request);        
     }
 }

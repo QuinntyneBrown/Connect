@@ -14,10 +14,9 @@ namespace Connect.API.Features.Identity
     {
         private readonly IMediator _mediator;
 
-        public UsersController(IMediator mediator) {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        }
-        
+        public UsersController(IMediator mediator)
+            => _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
         [HttpPost("token")]
         public async Task<ActionResult<Response>> SignIn(Request request)
             => await _mediator.Send(request);

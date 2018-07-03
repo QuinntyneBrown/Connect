@@ -35,7 +35,7 @@ namespace Connect.Core.Identity
             
             if(roles != default(ICollection<string>))
                 foreach(var role in roles)
-                    claims.Add(new Claim(ClaimTypes.Role, role));
+                    claims.Add(new Claim(ClaimTypes.Role, role,ClaimValueTypes.String, _configuration["Authentication:JwtIssuer"]));
             
             var jwt = new JwtSecurityToken(
                 issuer: _configuration["Authentication:JwtIssuer"],
