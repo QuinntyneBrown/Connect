@@ -20,7 +20,7 @@ namespace IntegrationTests.Features
                 IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
                 var response = await server.CreateClient()
-                    .PostAsAsync<SaveProfileCommand.Request, SaveProfileCommand.Response>(Post.Profiles, new SaveProfileCommand.Request() {
+                    .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request() {
                         Profile = new ProfileApiModel()
                         {
                             Name = "Name",
@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetProfileByIdQuery.Response>(Get.ProfileById(1));
 
-                Assert.True(response.Profile.ProfileId != default(int));
+                Assert.True(response.Profile.ProfileTypeId != default(int));
             }
         }
         
@@ -66,10 +66,10 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetProfileByIdQuery.Response>(Get.ProfileById(1));
 
-                Assert.True(getByIdResponse.Profile.ProfileId != default(int));
+                Assert.True(getByIdResponse.Profile.ProfileTypeId != default(int));
 
                 var saveResponse = await server.CreateClient()
-                    .PostAsAsync<SaveProfileCommand.Request, SaveProfileCommand.Response>(Post.Profiles, new SaveProfileCommand.Request()
+                    .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request()
                     {
                         Profile = getByIdResponse.Profile
                     });

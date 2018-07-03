@@ -109,14 +109,7 @@ namespace Connect.Core.Extensions
                         }
                     };
                 });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("IsAdmin", policy =>
-                    policy.Requirements.Add(new AdminRequirement()));
-            });
-
-            services.AddSingleton<IAuthorizationHandler, AdminHandler>();
+            
             return services;
         }
 

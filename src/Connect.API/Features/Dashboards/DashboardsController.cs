@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.Dashboards
 {
-    [Authorize(Policy = "IsAdmin")]
+    [Authorize]
     [ApiController]
     [Route("api/dashboards")]
     public class DashboardsController

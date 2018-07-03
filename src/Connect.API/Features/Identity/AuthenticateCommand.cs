@@ -72,7 +72,9 @@ namespace Connect.API.Features.Identity
                 if (validAccessTokens.Where(x => x.Username == request.Username).SingleOrDefault() != null)
                     throw new DomainException("Already logged In!");
 
-                var accessToken = _tokenManager.Issue(request.Username, user.UserRoles.Select(x => x.Role.Name).ToList());
+                var roles = user.UserRoles.Select(x => x.Role.Name).ToList();
+
+                var accessToken = _tokenManager.Issue(request.Username, roles);
 
                 _repository.Add(new AccessToken()
                 {

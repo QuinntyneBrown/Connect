@@ -13,7 +13,7 @@ namespace Connect.API.Features.Profiles
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Profile.ProfileId).NotNull();
+                RuleFor(request => request.Profile.ProfileTypeId).NotNull();
             }
         }
 
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Profiles
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var profile = await _context.Profiles.FindAsync(request.Profile.ProfileId);
+                var profile = await _context.Profiles.FindAsync(request.Profile.ProfileTypeId);
 
                 if (profile == null) _context.Profiles.Add(profile = new Profile());
 

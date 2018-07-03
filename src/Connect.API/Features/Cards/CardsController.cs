@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.Cards
 {
-    [Authorize(Policy = "IsAdmin")]
+    [Authorize]
     [ApiController]
     [Route("api/cards")]
     public class CardsController
@@ -14,6 +14,7 @@ namespace Connect.API.Features.Cards
 
         public CardsController(IMediator mediator) => _mediator = mediator;
 
+        [Authorize(Roles="Admin")]
         [HttpPost]
         public async Task<ActionResult<SaveCardCommand.Response>> Save(SaveCardCommand.Request request)
             => await _mediator.Send(request);

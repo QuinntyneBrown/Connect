@@ -15,7 +15,7 @@ namespace Connect.API.Features.Profiles
         public ProfilesController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
-        public async Task<ActionResult<SaveProfileCommand.Response>> Save(SaveProfileCommand.Request request)
+        public async Task<ActionResult<CreateProfileCommand.Response>> Save(CreateProfileCommand.Request request)
             => await _mediator.Send(request);
         
         [HttpDelete("{profileId}")]

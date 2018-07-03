@@ -5,7 +5,7 @@ namespace Connect.API.Features.Profiles
 {
     public class ProfileApiModel
     {        
-        public int ProfileId { get; set; }
+        public int ProfileTypeId { get; set; }
         public string Name { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -15,7 +15,7 @@ namespace Connect.API.Features.Profiles
         public static ProfileApiModel FromProfile(Profile profile)
         {
             var model = new ProfileApiModel();
-            model.ProfileId = profile.ProfileId;
+            model.ProfileTypeId = profile.ProfileId;
             model.Name = profile.Name;
             model.Firstname = profile.Firstname;
             model.Lastname = profile.Lastname;            

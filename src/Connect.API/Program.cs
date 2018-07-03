@@ -92,9 +92,9 @@ namespace Connect.API
             if (Configuration.GetValue<bool>("isTest"))
                 app.UseMiddleware<AutoAuthenticationMiddleware>();
 
-            app.UseMvc()
-                .UseAuthentication()
+            app.UseAuthentication()
                 .UseTokenValidation()
+                .UseMvc()
                 .UseCors(CorsDefaults.Policy)                
                 .UseSignalR(routes => routes.MapHub<IntegrationEventsHub>("/hub"))
                 .UseSwagger()

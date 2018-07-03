@@ -12,7 +12,7 @@ namespace Connect.API.Features.Profiles
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Profile.ProfileId).NotNull();
+                RuleFor(request => request.Profile.ProfileTypeId).NotNull();
             }
         }
 
@@ -38,6 +38,8 @@ namespace Connect.API.Features.Profiles
                 _context.Profiles.Add(profile);
 
                 profile.Name = request.Profile.Name;
+
+                profile.RaiseDomainEvent(new Core.DomainEvents.ProfileCreated(profile));
                 
                 await _context.SaveChangesAsync(cancellationToken);
 

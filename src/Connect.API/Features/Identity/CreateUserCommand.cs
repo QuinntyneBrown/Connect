@@ -1,10 +1,8 @@
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Collections.Generic;
 using Connect.Core.Interfaces;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using Connect.Core.Models;
+using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Connect.API.Features.Identity
 {
@@ -23,7 +21,18 @@ namespace Connect.API.Features.Identity
             public Handler(IAppDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new Response() { };
+                var user = new User();
+
+                _context.Users.Add(user);
+
+                user.RaiseDomainEvent(new Core.DomainEvents.UserCreated(user));
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return new Response()
+                {
+                    UserId = user.UserId
+                };
             }
         }
     }

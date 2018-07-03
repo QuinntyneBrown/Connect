@@ -2,10 +2,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Connect.Core.Identity;
 
 namespace Connect.API.Features.ContactRequests
 {
-    [Authorize(Policy = "IsAdmin")]
+
     [ApiController]
     [Route("api/contactrequests")]
     public class ContactRequestsController

@@ -29,7 +29,7 @@ namespace Connect.Core.Identity
             {
                 var repository = scope.ServiceProvider.GetService<IAccessTokenRepository>();
                 var username = "quinntynebrown@gmail.com";
-                var token = _tokenProvider.Issue(username, new List<string>() { "Admin " });
+                var token = _tokenProvider.Issue(username, new List<string>() { "Admin" });
                 httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
                 repository.Add(new AccessToken() {
                     Value = token,

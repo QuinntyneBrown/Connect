@@ -1,5 +1,4 @@
 using Connect.Core.Common;
-using Connect.Core.Models;
 
 namespace Connect.Core.DomainEvents
 {
@@ -7,7 +6,7 @@ namespace Connect.Core.DomainEvents
     {
         public ProfileCreated(dynamic payload)
         {
-            Payload = payload;
+            EventData = new { Profile = payload };
             EventType = EventTypes.Profiles.ProfileCreated;
         }
     }
