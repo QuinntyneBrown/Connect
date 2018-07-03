@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Connect.API.Features.Profiles;
+using Connect.Core.Common;
 
 namespace IntegrationTests.Features
 {
@@ -13,17 +15,27 @@ namespace IntegrationTests.Features
     {
 
         [Fact]
-        public async Task ShouldSave()
+        public async Task ShouldCreate()
         {
             using (var server = CreateServer())
             {
                 IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
+                await server.CreateClient()
+                    .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(ProfileScenarioBase.Post.Profiles, new CreateProfileCommand.Request()
+                    {
+                        Name = "Name",
+                        ProfileTypeId = (int)ProfileTypes.Customer,
+                        Username = "profileUsername",
+                        Password = "P@ssw0rd",
+                        ConfirmPassword = "P@ssw0rd"
+                    });
+
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateOrderCommand.Request, CreateOrderCommand.Response>(Post.Orders, new CreateOrderCommand.Request() {
                         Order = new OrderApiModel()
                         {
-
+                            CustomerId = 1
                         }
                     });
      

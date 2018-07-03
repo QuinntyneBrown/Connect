@@ -1,4 +1,5 @@
 using Connect.Core.Models;
+using System.Collections.Generic;
 
 namespace Connect.API.Features.Orders
 {
@@ -6,12 +7,15 @@ namespace Connect.API.Features.Orders
     {        
         public int OrderId { get; set; }
         public string Name { get; set; }
+        public int CustomerId { get; set; }
+        public ICollection<OrderItemApiModel> Items { get; set; }
+        = new HashSet<OrderItemApiModel>();
 
         public static OrderApiModel FromOrder(Order order)
-        {
-            var model = new OrderApiModel();
-            model.OrderId = order.OrderId;            
-            return model;
-        }
+            => new OrderApiModel
+            {
+                OrderId = order.OrderId,
+                CustomerId = order.CustomerId
+            };
     }
 }

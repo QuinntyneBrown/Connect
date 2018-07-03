@@ -6,6 +6,11 @@ namespace Connect.Core.Models
 {
     public class Order: Entity
     {
+        public Order()
+        {
+            OrderStatusId = (int)OrderStatuses.AwaitingPayment;
+        }
+
         public int OrderId { get; set; }
         public int OrderStatusId { get; set; }
         public DateTime OrderDateTime { get; set; }

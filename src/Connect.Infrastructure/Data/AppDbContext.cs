@@ -40,6 +40,7 @@ namespace Connect.Infrastructure.Data
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
         public DbSet<EntityVersion> EntityVersions { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<ProfileType> ProfileTypes { get; set; }

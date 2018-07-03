@@ -3,6 +3,7 @@ using Connect.Core.Identity;
 using Connect.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Connect.Core.Common;
 
 namespace Connect.API
 {
@@ -13,7 +14,7 @@ namespace Connect.API
             ProfileTypeConfiguration.Seed(context);
             RoleConfiguration.Seed(context);
             UserConfiguration.Seed(context);
-            
+            OrderStatusesConfiguration.Seed(context);
             context.SaveChanges();
         }
 
@@ -67,6 +68,20 @@ namespace Connect.API
 
                     context.Users.Add(user);
                 }
+
+                context.SaveChanges();
+            }
+        }
+
+        internal class OrderStatusesConfiguration
+        {
+            public static void Seed(AppDbContext context)
+            {
+                context.OrderStatuses.Add(new OrderStatus()
+                {
+
+                    Name = nameof(OrderStatuses.AwaitingPayment)
+                });
 
                 context.SaveChanges();
             }

@@ -20,6 +20,7 @@ namespace Connect.Core.Interfaces
         DbSet<DomainEvent> DomainEvents { get; set; }
         DbSet<EntityVersion> EntityVersions { get; set; }  
         DbSet<Order> Orders { get; set; }
+        DbSet<OrderStatus> OrderStatuses { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<Profile> Profiles { get; set; }
         DbSet<ProfileType> ProfileTypes { get; set; }

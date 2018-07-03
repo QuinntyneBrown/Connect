@@ -7,7 +7,7 @@ namespace Connect.Core.DomainEvents
     {
         public OrderCreated(dynamic payload)
         {
-            Payload = payload;
+            EventData = new { Order = payload };
             EventType = EventTypes.Orders.OrderCreated;
         }
     }

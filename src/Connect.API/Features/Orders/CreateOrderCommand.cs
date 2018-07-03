@@ -36,6 +36,8 @@ namespace Connect.API.Features.Orders
             {
                 var order = new Order();
 
+                order.CustomerId = request.Order.CustomerId;
+
                 _context.Orders.Add(order);
                 
                 order.RaiseDomainEvent(new OrderCreated(order));
