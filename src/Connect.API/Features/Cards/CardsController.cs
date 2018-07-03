@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.Cards
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     [ApiController]
     [Route("api/cards")]
     public class CardsController
@@ -17,7 +17,7 @@ namespace Connect.API.Features.Cards
         [HttpPost]
         public async Task<ActionResult<SaveCardCommand.Response>> Save(SaveCardCommand.Request request)
             => await _mediator.Send(request);
-        
+
         [HttpDelete("{cardId}")]
         public async Task Remove([FromRoute]RemoveCardCommand.Request request)
             => await _mediator.Send(request);            

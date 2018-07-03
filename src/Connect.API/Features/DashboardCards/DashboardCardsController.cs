@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.DashboardCards
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     [ApiController]
     [Route("api/dashboardCards")]
     public class DashboardCardsController

@@ -31,6 +31,7 @@ namespace Connect.Infrastructure.Data
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardLayout> CardLayouts { get; set; }
+        public DbSet<ContactRequest> ContactRequests { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<DashboardCard> DashboardCards { get; set; }
@@ -42,6 +43,7 @@ namespace Connect.Infrastructure.Data
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<ProfileType> ProfileTypes { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<ServiceProvider> ServiceProviders { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -102,7 +104,7 @@ namespace Connect.Infrastructure.Data
             modelBuilder.Entity<Conversation>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
-            modelBuilder.Entity<Customer>()
+            modelBuilder.Entity<ContactRequest>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Dashboard>()
@@ -120,23 +122,23 @@ namespace Connect.Infrastructure.Data
             modelBuilder.Entity<Product>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
-            modelBuilder.Entity<Report>()
+            modelBuilder.Entity<Profile>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
-            modelBuilder.Entity<ServiceProvider>()
+            modelBuilder.Entity<Report>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<User>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<EntityVersion>()
-                .HasKey(et => new { et.EntityId, et.Version, et.EntityName });
+                .HasKey(e => new { e.EntityId, e.Version, e.EntityName });
 
             modelBuilder.Entity<OrderItem>()
                 .HasKey(e => new { e.OrderId, e.ProductId });
 
             modelBuilder.Entity<UserRole>()
-                .HasKey(ur => new { ur.UserId, ur.RoleId });
+                .HasKey(e => new { e.UserId, e.RoleId });
 
             base.OnModelCreating(modelBuilder);
         }       

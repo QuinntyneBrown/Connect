@@ -1,9 +1,10 @@
 using Connect.Core.Common;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 namespace Connect.Core.Models
 {
-    public class User: Entity
+    public class User : Entity
     {
         public User()
         {
@@ -14,9 +15,11 @@ namespace Connect.Core.Models
             }
         }
 
-        public int UserId { get; set; }        
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public byte[] Salt { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+        = new HashSet<UserRole>();
     }
 }

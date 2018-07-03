@@ -19,18 +19,39 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\conversations\**" />
+    <Compile Remove="ClientApp\src\app\customers\**" />
+    <Compile Remove="ClientApp\src\app\dashboards\**" />
+    <Compile Remove="ClientApp\src\app\login\**" />
+    <Compile Remove="ClientApp\src\app\orders\**" />
+    <Compile Remove="ClientApp\src\app\service-providers\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\conversations\**" />
+    <Content Remove="ClientApp\src\app\customers\**" />
+    <Content Remove="ClientApp\src\app\dashboards\**" />
+    <Content Remove="ClientApp\src\app\login\**" />
+    <Content Remove="ClientApp\src\app\orders\**" />
+    <Content Remove="ClientApp\src\app\service-providers\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\conversations\" />
+    <EmbeddedResource Remove="ClientApp\src\app\conversations\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\customers\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\dashboards\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\login\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\orders\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\service-providers\**" />
+    <None Remove="ClientApp\src\app\conversations\**" />
+    <None Remove="ClientApp\src\app\customers\**" />
+    <None Remove="ClientApp\src\app\dashboards\**" />
+    <None Remove="ClientApp\src\app\login\**" />
+    <None Remove="ClientApp\src\app\orders\**" />
+    <None Remove="ClientApp\src\app\service-providers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ClientApp\src\app\core\" />
-    <Folder Include="ClientApp\src\app\customers\" />
-    <Folder Include="ClientApp\src\app\dashboards\" />
-    <Folder Include="ClientApp\src\app\login\" />
-    <Folder Include="ClientApp\src\app\orders\" />
-    <Folder Include="ClientApp\src\app\service-providers\" />
     <Folder Include="ClientApp\src\app\shared\" />
     <Folder Include="Controllers\" />
   </ItemGroup>

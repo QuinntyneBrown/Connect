@@ -4,6 +4,7 @@ using Connect.Core.Models;
 using Connect.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Connect.Core.Identity
 {
@@ -28,7 +29,7 @@ namespace Connect.Core.Identity
             {
                 var repository = scope.ServiceProvider.GetService<IAccessTokenRepository>();
                 var username = "quinntynebrown@gmail.com";
-                var token = _tokenProvider.Issue(username);
+                var token = _tokenProvider.Issue(username, new List<string>() { "Admin " });
                 httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
                 repository.Add(new AccessToken() {
                     Value = token,

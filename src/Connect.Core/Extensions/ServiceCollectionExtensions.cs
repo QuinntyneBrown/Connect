@@ -1,6 +1,7 @@
 ﻿using Connect.Core.Exceptions;
 using Connect.Core.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -109,6 +110,13 @@ namespace Connect.Core.Extensions
                     };
                 });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAdmin", policy =>
+                    policy.Requirements.Add(new AdminRequirement()));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, AdminHandler>();
             return services;
         }
 

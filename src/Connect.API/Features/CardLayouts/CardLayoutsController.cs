@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.CardLayouts
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     [ApiController]
     [Route("api/cardLayouts")]
     public class CardLayoutsController

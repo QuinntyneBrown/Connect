@@ -12,6 +12,7 @@ namespace Connect.Core.Interfaces
         DbSet<Conversation> Conversations { get; set; }
         DbSet<Card> Cards { get; set; }
         DbSet<CardLayout> CardLayouts { get; set; }
+        DbSet<ContactRequest> ContactRequests { get; set; }
         DbSet<Customer> Customers { get; set; }
         DbSet<Dashboard> Dashboards { get; set; }
         DbSet<DashboardCard> DashboardCards { get; set; }
@@ -23,6 +24,7 @@ namespace Connect.Core.Interfaces
         DbSet<Profile> Profiles { get; set; }
         DbSet<ProfileType> ProfileTypes { get; set; }
         DbSet<Report> Reports { get; set; }
+        DbSet<Role> Roles { get; set; }
         DbSet<ServiceProvider> ServiceProviders { get; set; }
         DbSet<User> Users { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

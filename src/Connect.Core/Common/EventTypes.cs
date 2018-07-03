@@ -12,6 +12,10 @@
 
         }
 
+        public static class ContactRequests {
+            public const string ContactRequestCreated = nameof(ContactRequestCreated);
+        }
+
         public static class Conversations
         {
             public const string ConversationRequested = nameof(ConversationRequested);

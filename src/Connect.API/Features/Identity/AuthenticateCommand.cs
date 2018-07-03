@@ -55,6 +55,8 @@ namespace Connect.API.Features.Identity
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {                
                 var user = await _context.Users
+                    .Include(x => x.UserRoles)
+                    .ThenInclude(x => x.Role)
                     .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
 
                 if (user == null) throw new DomainException("Invalid Username!");
@@ -70,7 +72,7 @@ namespace Connect.API.Features.Identity
                 if (validAccessTokens.Where(x => x.Username == request.Username).SingleOrDefault() != null)
                     throw new DomainException("Already logged In!");
 
-                var accessToken = _tokenManager.Issue(request.Username);
+                var accessToken = _tokenManager.Issue(request.Username, user.UserRoles.Select(x => x.Role.Name).ToList());
 
                 _repository.Add(new AccessToken()
                 {

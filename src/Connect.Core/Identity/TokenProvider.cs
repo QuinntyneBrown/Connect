@@ -10,7 +10,7 @@ namespace Connect.Core.Identity
 {
     public interface ITokenManager
     {
-        string Issue(string username);
+        string Issue(string username, ICollection<string> roles = default(ICollection<string>));
         DateTime GetValidToDateTime(string token);
     }
 
@@ -20,7 +20,7 @@ namespace Connect.Core.Identity
         public TokenManager(IConfiguration configuration)
             => _configuration = configuration;
         
-        public string Issue(string uniqueName)
+        public string Issue(string uniqueName, ICollection<string> roles = default(ICollection<string>))
         {
             var now = DateTime.UtcNow;
             var nowDateTimeOffset = new DateTimeOffset(now);
@@ -32,6 +32,10 @@ namespace Connect.Core.Identity
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, nowDateTimeOffset.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
                 };
+            
+            if(roles != default(ICollection<string>))
+                foreach(var role in roles)
+                    claims.Add(new Claim(ClaimTypes.Role, role));
             
             var jwt = new JwtSecurityToken(
                 issuer: _configuration["Authentication:JwtIssuer"],

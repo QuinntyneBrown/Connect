@@ -11,10 +11,24 @@ namespace Connect.API
         public static void Seed(AppDbContext context)
         {
             ProfileTypeConfiguration.Seed(context);
-
+            RoleConfiguration.Seed(context);
             UserConfiguration.Seed(context);
             
             context.SaveChanges();
+        }
+
+        internal class RoleConfiguration {
+            public static void Seed(AppDbContext context)
+            {
+                if (context.Roles.FirstOrDefault(x => x.Name == "Admin") == null) {                    
+                    context.Roles.Add(new Role()
+                    {
+                        Name = "Admin"
+                    });
+                }
+
+                context.SaveChanges();
+            }
         }
 
         internal class UserConfiguration
@@ -29,6 +43,11 @@ namespace Connect.API
                     };
                     user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");
 
+                    user.UserRoles.Add(new UserRole()
+                    {
+                        RoleId = context.Roles.Single(x => x.Name == "Admin").RoleId
+                    });
+
                     context.Users.Add(user);
                 }
                 
@@ -38,6 +57,12 @@ namespace Connect.API
                     {
                         Username = "quinntyne@hotmail.com"
                     };
+
+                    user.UserRoles.Add(new UserRole()
+                    {
+                        RoleId = context.Roles.Single(x => x.Name == "Admin").RoleId
+                    });
+
                     user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");
 
                     context.Users.Add(user);
