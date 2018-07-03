@@ -34,12 +34,13 @@ namespace Connect.API.Features.Profiles
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var profile = await _context.Profiles.FindAsync(request.Profile.ProfileTypeId);
+                var profile = await _context.Profiles.FindAsync(request.Profile.ProfileId);
 
                 if (profile == null) _context.Profiles.Add(profile = new Profile());
 
                 profile.Name = request.Profile.Name;
-                profile.ProfileTypeId = _context.ProfileTypes.Where(x => x.Name == request.Profile.ProfileType).Single().ProfileTypeId;
+
+                profile.ProfileTypeId = _context.ProfileTypes.Where(x => x.Name == request.Profile.Name).Single().ProfileTypeId;
                 
                 await _context.SaveChangesAsync(cancellationToken);
 

@@ -1,11 +1,13 @@
 using Connect.Core.Common;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Connect.Core.Models
 {
     public class Profile: Entity
     {
         public int ProfileId { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
         public int ProfileTypeId { get; set; }
         public string Name { get; set; }        

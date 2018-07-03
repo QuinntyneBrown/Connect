@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Connect.Core.Common;
 
 namespace IntegrationTests.Features
 {
@@ -13,7 +14,7 @@ namespace IntegrationTests.Features
     {
 
         [Fact]
-        public async Task ShouldSave()
+        public async Task ShouldCreate()
         {
             using (var server = CreateServer())
             {
@@ -21,13 +22,14 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request() {
-                        Profile = new ProfileApiModel()
-                        {
-                            Name = "Name",
-                        }
+                        Name = "Name",
+                        ProfileTypeId = (int)ProfileTypes.Customer,
+                        Username = "profileUsername",
+                        Password = "P@ssw0rd",
+                        ConfirmPassword = "P@ssw0rd"
                     });
      
-	            var entity = context.Profiles.First();
+	            var entity = context.Customers.First();
 
                 Assert.Equal("Name", entity.Name);
             }
@@ -71,7 +73,7 @@ namespace IntegrationTests.Features
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request()
                     {
-                        Profile = getByIdResponse.Profile
+                        ProfileTypeId = getByIdResponse.Profile.ProfileTypeId
                     });
 
                 Assert.True(saveResponse.ProfileId != default(int));

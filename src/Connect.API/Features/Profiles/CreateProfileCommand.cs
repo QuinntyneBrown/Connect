@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Connect.Core.Models;
 using Connect.Core.Interfaces;
+using Connect.Core.Common;
+using Connect.Core.Identity;
 
 namespace Connect.API.Features.Profiles
 {
@@ -12,12 +14,20 @@ namespace Connect.API.Features.Profiles
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Profile.ProfileTypeId).NotNull();
+                RuleFor(request => request.ProfileTypeId).NotNull();
             }
         }
 
         public class Request : IRequest<Response> {
-            public ProfileApiModel Profile { get; set; }
+            public string Username { get; set; }
+            public string Name { get; set; }
+
+            public string Password { get; set; }
+
+            public string ConfirmPassword { get; set; }
+
+            public int ProfileTypeId { get; set; }
+
         }
 
         public class Response
@@ -27,17 +37,38 @@ namespace Connect.API.Features.Profiles
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+            private readonly IAppDbContext _context;
+            private readonly IPasswordHasher _passwordHasher;
+            public Handler(IAppDbContext context, IPasswordHasher passwordHasher) {
+                _context = context;
+                _passwordHasher = passwordHasher;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var profile = new Profile();
+                var profile = default(dynamic);
 
-                _context.Profiles.Add(profile);
+                var user = new User()
+                {
+                    Username = request.Username
+                };
 
-                profile.Name = request.Profile.Name;
+                user.Password = _passwordHasher.HashPassword(user.Salt, request.Password);
+
+                if (request.ProfileTypeId == (int)ProfileTypes.Customer)
+                {
+                    profile = new Customer();
+                    
+                    _context.Customers.Add(profile);
+                } else
+                {
+                    profile = new ServiceProvider();
+                    
+                    _context.ServiceProviders.Add(profile);
+                }
+
+                profile.User = user;
+                profile.Name = request.Name;
 
                 profile.RaiseDomainEvent(new Core.DomainEvents.ProfileCreated(profile));
                 
