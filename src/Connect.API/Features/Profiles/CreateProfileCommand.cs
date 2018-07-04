@@ -19,14 +19,9 @@ namespace Connect.API.Features.Profiles
         }
 
         public class Request : IRequest<Response> {
-            public string Username { get; set; }
-            public string Name { get; set; }
-
-            public string Password { get; set; }
-
-            public string ConfirmPassword { get; set; }
-
+            public string Name { get; set; }            
             public int ProfileTypeId { get; set; }
+            public int UserId { get; set; }
 
         }
 
@@ -47,14 +42,7 @@ namespace Connect.API.Features.Profiles
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var profile = default(dynamic);
-
-                var user = new User()
-                {
-                    Username = request.Username
-                };
-
-                user.Password = _passwordHasher.HashPassword(user.Salt, request.Password);
-
+                
                 if (request.ProfileTypeId == (int)ProfileTypes.Customer)
                 {
                     profile = new Customer();
@@ -67,7 +55,8 @@ namespace Connect.API.Features.Profiles
                     _context.ServiceProviders.Add(profile);
                 }
 
-                profile.User = user;
+                profile.UserId = request.UserId;
+
                 profile.Name = request.Name;
 
                 profile.RaiseDomainEvent(new Core.DomainEvents.ProfileCreated(profile));

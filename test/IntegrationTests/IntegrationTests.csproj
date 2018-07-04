@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Connect.API\Connect.API.csproj" />
     <ProjectReference Include="..\..\src\Connect.Core\Connect.Core.csproj" />
     <ProjectReference Include="..\..\src\Connect.Infrastructure\Connect.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Connect.API\Connect.API.csproj" />
   </ItemGroup>
 
 </Project>

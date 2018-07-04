@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Connect.API.Features.Profiles;
 using Connect.Core.Common;
+using Connect.API.Sagas;
 
 namespace IntegrationTests.Features
 {
@@ -22,7 +23,7 @@ namespace IntegrationTests.Features
                 IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
                 await server.CreateClient()
-                    .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(ProfileScenarioBase.Post.Profiles, new CreateProfileCommand.Request()
+                    .PostAsAsync<CreateProfileSagaCommand.Request, CreateProfileSagaCommand.Response>(ProfileScenarioBase.Post.Profiles, new CreateProfileSagaCommand.Request()
                     {
                         Name = "Name",
                         ProfileTypeId = (int)ProfileTypes.Customer,
@@ -32,11 +33,7 @@ namespace IntegrationTests.Features
                     });
 
                 var response = await server.CreateClient()
-                    .PostAsAsync<CreateOrderCommand.Request, CreateOrderCommand.Response>(Post.Orders, new CreateOrderCommand.Request() {
-                        Order = new OrderApiModel()
-                        {
-                            CustomerId = 1
-                        }
+                    .PostAsAsync<CreateOrderSagaCommand.Request, CreateOrderSagaCommand.Response>(Post.Orders, new CreateOrderSagaCommand.Request() {
                     });
      
 	            var entity = context.Orders.First();

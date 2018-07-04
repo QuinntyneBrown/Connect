@@ -1,3 +1,4 @@
+using Connect.Core.Identity;
 using Connect.Core.Interfaces;
 using Connect.Core.Models;
 using MediatR;
@@ -8,7 +9,11 @@ namespace Connect.API.Features.Identity
 {
     public class CreateUserCommand
     {
-        public class Request : IRequest<Response> { }
+        public class Request : IRequest<Response> {
+            public string Username { get; set; }
+            public string Password { get; set; }
+            public string ConfirmPassword { get; set; }
+        }
 
         public class Response
         {
@@ -18,13 +23,23 @@ namespace Connect.API.Features.Identity
         public class Handler : IRequestHandler<Request, Response>
         {
             public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context) => _context = context;
+            private readonly IPasswordHasher _passwordHasher;
+            public Handler(IAppDbContext context, IPasswordHasher passwordHasher) {
+                _context = context;
+                _passwordHasher = passwordHasher;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-                var user = new User();
+
+                var user = new User()
+                {
+                    Username = request.Username
+                };
 
                 _context.Users.Add(user);
-
+                
+                user.Password = _passwordHasher.HashPassword(user.Salt, request.Password);
+                
                 user.RaiseDomainEvent(new Core.DomainEvents.UserCreated(user));
 
                 await _context.SaveChangesAsync(cancellationToken);

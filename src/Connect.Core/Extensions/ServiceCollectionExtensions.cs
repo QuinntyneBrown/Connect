@@ -1,5 +1,6 @@
 ﻿using Connect.Core.Exceptions;
 using Connect.Core.Identity;
+using Connect.Core.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -79,7 +80,7 @@ namespace Connect.Core.Extensions
                 .AllowAnyHeader()
                 .AllowCredentials()));
             
-            services.TryAddSingleton<ITokenManager, TokenManager>();
+            services.TryAddSingleton<ISecurityTokenFactory, SecurityTokenFactory>();
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
@@ -105,6 +106,10 @@ namespace Connect.Core.Extensions
 
                             if (!string.IsNullOrEmpty(token)) context.Token = token;
 
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context => {
+                            
                             return Task.CompletedTask;
                         }
                     };

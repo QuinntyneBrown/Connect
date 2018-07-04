@@ -1,36 +1,32 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Connect.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static System.DateTime;
+using static System.Security.Claims.ClaimValueTypes;
 
 namespace Connect.Core.Identity
 {
-    public interface ITokenManager
+    public class SecurityTokenFactory : ISecurityTokenFactory
     {
-        string Issue(string username, ICollection<string> roles = default(ICollection<string>));
-        DateTime GetValidToDateTime(string token);
-    }
-
-    public class TokenManager : ITokenManager
-    {
-        private IConfiguration _configuration;
-        public TokenManager(IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        public SecurityTokenFactory(IConfiguration configuration)
             => _configuration = configuration;
         
-        public string Issue(string uniqueName, ICollection<string> roles = default(ICollection<string>))
+        public string Create(string uniqueName, ICollection<string> roles = default(ICollection<string>))
         {
-            var now = DateTime.UtcNow;
-            var nowDateTimeOffset = new DateTimeOffset(now);
-
+            var now = UtcNow;
+            
             var claims = new List<Claim>()
                 {
                     new Claim(JwtRegisteredClaimNames.UniqueName, uniqueName),
                     new Claim(JwtRegisteredClaimNames.Sub, uniqueName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Iat, nowDateTimeOffset.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+                    new Claim(JwtRegisteredClaimNames.Iat, $"{new DateTimeOffset(now).ToUnixTimeSeconds()}", Integer64),
                 };
             
             if(roles != default(ICollection<string>))
@@ -46,10 +42,6 @@ namespace Connect.Core.Identity
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:JwtKey"])), SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
-        }
-
-        public DateTime GetValidToDateTime(string token) {
-            return (new JwtSecurityTokenHandler().ReadToken(token) as JwtSecurityToken).ValidTo;
-        }
+        }        
     }
 }

@@ -17,7 +17,6 @@ using Connect.Infrastructure.Extensions;
 using System;
 using System.Linq;
 
-
 namespace Connect.API
 {
     public class Program
@@ -61,7 +60,7 @@ namespace Connect.API
             }
         }
     }
-
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)

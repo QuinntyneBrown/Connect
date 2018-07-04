@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 
 namespace IntegrationTests
 {
@@ -22,7 +23,7 @@ namespace IntegrationTests
                     .UseConfiguration(GetConfiguration())
                     .ConfigureAppConfiguration((builderContext, config) =>
                     {
-                        config
+                        config                        
                         .AddInMemoryCollection(new Dictionary<string, string>
                         {
                             { "isTest", "true"},
@@ -47,8 +48,7 @@ namespace IntegrationTests
                             .Build();
 
         protected IConfiguration GetConfiguration() => new ConfigurationBuilder()
-                .SetBasePath(Path.GetFullPath(@"../../../../../src/Connect.API/"))
-                .AddJsonFile("appsettings.json", optional: false)
+                .AddUserSecrets(typeof(Startup).GetTypeInfo().Assembly)                
                 .Build();
     }
 }

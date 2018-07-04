@@ -11,11 +11,11 @@ namespace Connect.Core.Identity
     public class AutoAuthenticationMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ITokenManager _tokenProvider;
+        private readonly ISecurityTokenFactory _tokenProvider;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         
         public AutoAuthenticationMiddleware(
-            ITokenManager tokenProvider, 
+            ISecurityTokenFactory tokenProvider, 
             RequestDelegate next, 
             IServiceScopeFactory serviceScopeFactory) {            
             _next = next;
@@ -29,7 +29,7 @@ namespace Connect.Core.Identity
             {
                 var repository = scope.ServiceProvider.GetService<IAccessTokenRepository>();
                 var username = "quinntynebrown@gmail.com";
-                var token = _tokenProvider.Issue(username, new List<string>() { "Admin" });
+                var token = _tokenProvider.Create(username, new List<string>() { "Admin" });
                 httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
                 repository.Add(new AccessToken() {
                     Value = token,

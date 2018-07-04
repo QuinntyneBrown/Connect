@@ -37,19 +37,19 @@ namespace Connect.API.Features.Identity
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly IAccessTokenRepository _repository;
+            private readonly IAccessTokenRepository _repository;            
             private readonly IAppDbContext _context;
             private readonly IOptionsSnapshot<AuthenticationSettings> _authenticationSettings;
             private readonly IPasswordHasher _passwordHasher;
-            private readonly ITokenManager _tokenManager;
+            private readonly ISecurityTokenFactory _securityTokenFactory;
   
-            public Handler(IAccessTokenRepository repository, IAppDbContext context, IOptionsSnapshot<AuthenticationSettings> authenticationSettings, IPasswordHasher passwordHasher, ITokenManager tokenManager)
+            public Handler(IAccessTokenRepository repository, IAppDbContext context, IOptionsSnapshot<AuthenticationSettings> authenticationSettings, IPasswordHasher passwordHasher, ISecurityTokenFactory securityTokenFactory)
             {
                 _context = context;
                 _authenticationSettings = authenticationSettings;
                 _repository = repository;                
                 _passwordHasher = passwordHasher;
-                _tokenManager = tokenManager;
+                _securityTokenFactory = securityTokenFactory;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -71,14 +71,14 @@ namespace Connect.API.Features.Identity
 
                 if (validAccessTokens.Where(x => x.Username == request.Username).SingleOrDefault() != null)
                     throw new DomainException("Already logged In!");
-
-                var roles = user.UserRoles.Select(x => x.Role.Name).ToList();
-
-                var accessToken = _tokenManager.Issue(request.Username, roles);
-
+                
+                var securityToken = _securityTokenFactory.Create(request.Username, user.UserRoles
+                    .Select(x => x.Role.Name)
+                    .ToList());
+                
                 _repository.Add(new AccessToken()
                 {
-                    Value = accessToken,
+                    Value = securityToken,
                     Username = request.Username
                 });
 
@@ -86,7 +86,7 @@ namespace Connect.API.Features.Identity
                 
                 return new Response()
                 {
-                    AccessToken = accessToken,
+                    AccessToken = securityToken,
                     UserId = user.UserId
                 };
             }               

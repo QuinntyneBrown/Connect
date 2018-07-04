@@ -23,10 +23,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request() {
                         Name = "Name",
-                        ProfileTypeId = (int)ProfileTypes.Customer,
-                        Username = "profileUsername",
-                        Password = "P@ssw0rd",
-                        ConfirmPassword = "P@ssw0rd"
+                        ProfileTypeId = (int)ProfileTypes.Customer
                     });
      
 	            var entity = context.Customers.First();
