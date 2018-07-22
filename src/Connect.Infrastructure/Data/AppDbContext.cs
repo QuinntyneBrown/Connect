@@ -28,6 +28,7 @@ namespace Connect.Infrastructure.Data
                     => category == DbLoggerCategory.Database.Command.Name 
                 && level == LogLevel.Information, true) });
 
+        public DbSet<StoredEvent> StoredEvents { get; set; }
         public DbSet<AccessToken> AccessTokens { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Card> Cards { get; set; }
@@ -36,7 +37,7 @@ namespace Connect.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<DashboardCard> DashboardCards { get; set; }
-        public DbSet<DomainEvent> DomainEvents { get; set;  }
+        public DbSet<StoredEvent> DomainEvents { get; set;  }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
         public DbSet<EntityVersion> EntityVersions { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -53,26 +54,11 @@ namespace Connect.Infrastructure.Data
         {
             var result = default(int);
             
-            var domainEventEntities = ChangeTracker.Entries<Entity>()
+            var domainEventEntities = ChangeTracker.Entries<AggregateRoot>()
                 .Select(entityEntry => entityEntry.Entity)
                 .Where(entity => entity.DomainEvents.Any())
                 .ToArray();
             
-            foreach (var entity in ChangeTracker.Entries<Entity>()
-                .Where(e => (e.State == EntityState.Added || (e.State == EntityState.Modified)))
-                .Select(x => x.Entity))
-            {
-                var isNew = entity.CreatedOn == default(DateTime);
-                entity.CreatedOn = isNew ? DateTime.UtcNow : entity.CreatedOn;   
-                entity.LastModifiedOn = DateTime.UtcNow;
-            }
-
-            foreach (var item in ChangeTracker.Entries<Entity>().Where(e => e.State == EntityState.Deleted))
-            {
-                item.State = EntityState.Modified;
-                item.Entity.IsDeleted = true;
-            }
-
             result = await base.SaveChangesAsync(cancellationToken);
 
             foreach (var entity in domainEventEntities)
@@ -83,11 +69,7 @@ namespace Connect.Infrastructure.Data
                 entity.ClearEvents();
 
                 foreach (var @event in events)
-                {
-                    @event.Payload = JsonConvert.SerializeObject(@event.EventData);
-
-                    DomainEvents.Add(@event);
-
+                {                    
                     await _mediator.Publish(@event, cancellationToken);
                 }
 
@@ -98,43 +80,7 @@ namespace Connect.Infrastructure.Data
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Card>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<CardLayout>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<Conversation>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<ContactRequest>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<Dashboard>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<DashboardCard>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<DigitalAsset>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<Order>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<Product>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<Profile>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<Report>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
-            modelBuilder.Entity<User>()
-                .HasQueryFilter(e => !e.IsDeleted);
-
+        {            
             modelBuilder.Entity<EntityVersion>()
                 .HasKey(e => new { e.EntityId, e.Version, e.EntityName });
 
@@ -145,6 +91,6 @@ namespace Connect.Infrastructure.Data
                 .HasKey(e => new { e.UserId, e.RoleId });
 
             base.OnModelCreating(modelBuilder);
-        }       
+        }
     }
 }

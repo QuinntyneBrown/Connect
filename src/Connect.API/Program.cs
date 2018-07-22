@@ -1,4 +1,12 @@
-﻿using FluentValidation.AspNetCore;
+﻿using Connect.Core;
+using Connect.Core.Behaviours;
+using Connect.Core.Common;
+using Connect.Core.Extensions;
+using Connect.Core.Identity;
+using Connect.Core.Interfaces;
+using Connect.Infrastructure.Data;
+using Connect.Infrastructure.Extensions;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -6,14 +14,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Connect.Core.Common;
-using Connect.Core;
-using Connect.Core.Behaviours;
-using Connect.Core.Extensions;
-using Connect.Core.Identity;
-using Connect.Core.Interfaces;
-using Connect.Infrastructure.Data;
-using Connect.Infrastructure.Extensions;
 using System;
 using System.Linq;
 
@@ -52,7 +52,7 @@ namespace Connect.API
                 if (args.Contains("seeddb"))
                 {
                     context.Database.EnsureCreated();
-                    SeedData.Seed(context);
+                    AppInitializer.Seed(context);
                 }
 
                 if (args.Contains("stop"))
@@ -79,10 +79,7 @@ namespace Connect.API
                 .AddCustomSecurity(Configuration)
                 .AddCustomSignalR()
                 .AddCustomSwagger()
-                .AddTransient<IEntityVersionManager, EntityVersionManager>()
-                .AddTransient<IEntityVersionRepository, EntityVersionRepository>()
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>))
-                .AddTransient(typeof(IPipelineBehavior<,>), typeof(VersionedCommandBehavior<,>))
                 .AddMediatR(typeof(Startup));
         }
 

@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace Connect.Core.Models
 {
-    public class User : Entity
+    public class User : AggregateRoot
     {
         public User()
         {

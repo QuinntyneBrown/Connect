@@ -2,7 +2,7 @@ using Connect.Core.Common;
 
 namespace Connect.Core.Models
 {
-    public class Product: Entity
+    public class Product: AggregateRoot
     {
         public int ProductId { get; set; }           
 		public string Name { get; set; }

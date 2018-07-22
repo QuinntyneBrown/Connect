@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.SignalR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Connect.Core.DomainEvents
+namespace Connect.API.Features.Customers
 {
-    public class CustomerCreatedHandler : INotificationHandler<CustomerCreated>
+    public class CustomerCreatedHandler : INotificationHandler<Core.DomainEvents.CustomerCreated>
     {
         private readonly IHubContext<IntegrationEventsHub> _hubContext;
 
@@ -15,8 +15,11 @@ namespace Connect.Core.DomainEvents
             => _hubContext = hubContext;
 
         public async Task Handle(CustomerCreated @event, CancellationToken cancellationToken)
-        {
-            await _hubContext.Clients.All.SendAsync("events", @event, cancellationToken);
-        }
+            => await _hubContext.Clients.All
+            .SendAsync("events", new
+            {
+                Type = nameof(CustomerCreated),
+                Payload = @event
+            }, cancellationToken);
     }
 }

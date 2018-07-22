@@ -1,16 +1,21 @@
+using Connect.API.Features.Orders;
 using Connect.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Connect.API.Sagas
 {
-    public class CreateOrderSagaCommand
+    public class CreateOrderProcessManager
     {
-        public class Request : IRequest<Response> { }
+        public class Request : IRequest<Response> {
+            public ICollection<OrderItemApiModel> Items { get; set; } 
+                = new HashSet<OrderItemApiModel>();
+        }
 
         public class Response
         {
@@ -22,6 +27,7 @@ namespace Connect.API.Sagas
             private readonly IAppDbContext _context;
             private readonly IMediator _mediator;
             private readonly IHttpContextAccessor _httpContextAccessor;
+
             public Handler(
                 IAppDbContext context, 
                 IMediator mediator,
@@ -41,13 +47,27 @@ namespace Connect.API.Sagas
                     .Where(x => x.User.Username == httpContext.User.Identity.Name)
                     .Single();
 
-                var orderResponse = _mediator.Send(new Features.Orders.CreateOrderCommand.Request() {
-                    Order = new Features.Orders.OrderApiModel()
+                var orderResponse = await _mediator.Send(new CreateOrderCommand.Request() {
+                    Order = new OrderApiModel()
                     {
-                        CustomerId = customer.CustomerId
+                        CustomerId = customer.CustomerId,
+                        Items = request.Items
                     }
                 });
-			    return new Response() { };
+
+                await _mediator.Send(new ProcessOrderPaymentCommand.Request()
+                {
+                    OrderId = orderResponse.Order.OrderId
+                });
+
+                await _mediator.Send(new ShipOrderCommand.Request()
+                {
+                   Order = orderResponse.Order
+                });
+
+                return new Response() {
+                    OrderId = orderResponse.Order.OrderId
+                };
             }
         }
     }

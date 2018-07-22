@@ -15,7 +15,7 @@ namespace Connect.API.Features.ContactRequests
 
         public async Task Handle(Core.DomainEvents.ContactRequestCreated @event, CancellationToken cancellationToken)
         {
-            await _hubContext.Clients.All.SendAsync("events", ContactRequestCreated.FromDomainEvent(@event), cancellationToken);
+            await _hubContext.Clients.All.SendAsync("events", @event, cancellationToken);
         }
     }
 }

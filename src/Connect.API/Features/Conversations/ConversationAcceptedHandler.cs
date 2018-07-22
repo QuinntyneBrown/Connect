@@ -1,5 +1,5 @@
-using Connect.API.IntegrationEvents;
 using Connect.Core;
+using Connect.Core.DomainEvents;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;

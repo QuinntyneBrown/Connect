@@ -29,5 +29,10 @@ namespace Connect.API.Features.Orders
         [HttpGet]
         public async Task<ActionResult<GetOrdersQuery.Response>> Get()
             => await _mediator.Send(new GetOrdersQuery.Request());
+
+        [HttpGet]
+        [HttpGet("history/customer/{customerId}")]
+        public async Task<ActionResult<GetOrderHistoryByCustomerIdQuery.Response>> Get([FromRoute]GetOrderHistoryByCustomerIdQuery.Request request)
+            => await _mediator.Send(request);
     }
 }

@@ -22,11 +22,6 @@ namespace Connect.API.Features.Dashboards
 
         public async Task Handle(ProfileCreated @event, CancellationToken cancellationToken)
         {
-            _context.Dashboards.Add(new Dashboard
-            {
-                Name = "Default",
-                ProfileId = @event.EventData.Profile.ProfileId
-            });
             await _context.SaveChangesAsync(cancellationToken);
         }
     }

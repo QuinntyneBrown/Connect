@@ -1,6 +1,6 @@
 namespace Connect.Core.DomainEvents
 {
-    public class OrderCancelled: DomainEvent
+    public class CreditsAdded: DomainEvent
     {
 
     }

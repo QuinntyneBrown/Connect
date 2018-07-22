@@ -10,7 +10,7 @@ using Connect.API.Features.Profiles;
 
 namespace Connect.API.Sagas
 {
-    public class CreateProfileSagaCommand
+    public class CreateProfileProcessManager
     {
         public class Request : IRequest<Response> {
             public string Username { get; set; }

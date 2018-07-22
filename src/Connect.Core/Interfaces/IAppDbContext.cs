@@ -1,13 +1,15 @@
 ﻿using Connect.Core.Common;
 using Connect.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Connect.Core.Interfaces
 {
-    public interface IAppDbContext
-    {
+    public interface IAppDbContext : IDisposable
+    {        
+        DbSet<StoredEvent> StoredEvents { get; set; }
         DbSet<AccessToken> AccessTokens { get; set; }
         DbSet<Conversation> Conversations { get; set; }
         DbSet<Card> Cards { get; set; }
@@ -17,7 +19,7 @@ namespace Connect.Core.Interfaces
         DbSet<Dashboard> Dashboards { get; set; }
         DbSet<DashboardCard> DashboardCards { get; set; }
         DbSet<DigitalAsset> DigitalAssets { get; set; }
-        DbSet<DomainEvent> DomainEvents { get; set; }
+        DbSet<StoredEvent> DomainEvents { get; set; }
         DbSet<EntityVersion> EntityVersions { get; set; }  
         DbSet<Order> Orders { get; set; }
         DbSet<OrderStatus> OrderStatuses { get; set; }
@@ -28,6 +30,6 @@ namespace Connect.Core.Interfaces
         DbSet<Role> Roles { get; set; }
         DbSet<ServiceProvider> ServiceProviders { get; set; }
         DbSet<User> Users { get; set; }
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }

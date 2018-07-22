@@ -1,4 +1,3 @@
-using Connect.Core.DomainEvents;
 using Connect.Core.Interfaces;
 using Connect.Core.Models;
 using FluentValidation;
@@ -42,8 +41,6 @@ namespace Connect.API.Features.Customers
 
                 customer.Name = request.Customer.Name;
                 
-                customer.RaiseDomainEvent(new CustomerCreated(customer));
-
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response() { CustomerId = customer.CustomerId };

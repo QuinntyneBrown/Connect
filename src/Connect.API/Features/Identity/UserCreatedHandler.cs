@@ -15,7 +15,7 @@ namespace Connect.API.Features.Identity
 
         public async Task Handle(Core.DomainEvents.UserCreated @event, CancellationToken cancellationToken)
         {
-            await _hubContext.Clients.All.SendAsync("events", UserCreated.FromDomainEvent(@event), cancellationToken);
+            await _hubContext.Clients.All.SendAsync("events", @event, cancellationToken);
         }
     }
 }

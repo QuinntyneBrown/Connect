@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Connect.Core.Models
 {
-    public class DashboardCard: Entity
+    public class DashboardCard: AggregateRoot
     {
         public int DashboardCardId { get; set; }
         [ForeignKey("Dashboard")]

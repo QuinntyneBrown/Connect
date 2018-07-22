@@ -2,7 +2,7 @@ using Connect.Core.Common;
 
 namespace Connect.Core.Models
 {
-    public class ContactRequest: Entity
+    public class ContactRequest: AggregateRoot
     {
         public int ContactRequestId { get; set; }           
 		public string Name { get; set; }

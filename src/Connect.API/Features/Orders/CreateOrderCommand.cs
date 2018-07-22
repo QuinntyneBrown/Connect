@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using static Connect.Core.Common.Products;
 
 namespace Connect.API.Features.Orders
 {
@@ -23,7 +24,7 @@ namespace Connect.API.Features.Orders
 
         public class Response
         {			
-            public int OrderId { get; set; }
+            public OrderApiModel Order { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -38,13 +39,18 @@ namespace Connect.API.Features.Orders
 
                 order.CustomerId = request.Order.CustomerId;
 
+                foreach(var item in request.Order.Items)
+                {
+                    order.OrderItems.Add(new OrderItem()
+                    {
+                        ProductId = item.ProductId
+                    });
+                }
                 _context.Orders.Add(order);
                 
-                order.RaiseDomainEvent(new OrderCreated(order));
-
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { OrderId = order.OrderId };
+                return new Response() { Order = OrderApiModel.FromOrder(order) };
             }
         }
     }

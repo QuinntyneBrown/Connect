@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Connect.Core.Models
 {
-    public class Profile: Entity
+    public class Profile: AggregateRoot
     {
         public int ProfileId { get; set; }
         [ForeignKey("User")]

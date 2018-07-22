@@ -58,8 +58,6 @@ namespace Connect.API.Features.Profiles
                 profile.UserId = request.UserId;
 
                 profile.Name = request.Name;
-
-                profile.RaiseDomainEvent(new Core.DomainEvents.ProfileCreated(profile));
                 
                 await _context.SaveChangesAsync(cancellationToken);
 

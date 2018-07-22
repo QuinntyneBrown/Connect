@@ -5,6 +5,7 @@
         Started = 1,
         AwaitingValidation,
         AwaitingPayment,
+        Paid,
         Completed,
         Cancelled
     }

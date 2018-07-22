@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Connect.Core.Models
 {
-    public class Conversation: Entity
+    public class Conversation: AggregateRoot
     {
         public int ConversationId { get; set; }
         public ICollection<Profile> Profiles { get; set; } = new HashSet<Profile>();

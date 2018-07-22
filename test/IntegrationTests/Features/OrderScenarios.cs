@@ -23,7 +23,7 @@ namespace IntegrationTests.Features
                 IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
                 await server.CreateClient()
-                    .PostAsAsync<CreateProfileSagaCommand.Request, CreateProfileSagaCommand.Response>(ProfileScenarioBase.Post.Profiles, new CreateProfileSagaCommand.Request()
+                    .PostAsAsync<CreateProfileProcessManager.Request, CreateProfileProcessManager.Response>(ProfileScenarioBase.Post.Profiles, new CreateProfileProcessManager.Request()
                     {
                         Name = "Name",
                         ProfileTypeId = (int)ProfileTypes.Customer,
@@ -33,7 +33,7 @@ namespace IntegrationTests.Features
                     });
 
                 var response = await server.CreateClient()
-                    .PostAsAsync<CreateOrderSagaCommand.Request, CreateOrderSagaCommand.Response>(Post.Orders, new CreateOrderSagaCommand.Request() {
+                    .PostAsAsync<CreateOrderProcessManager.Request, CreateOrderProcessManager.Response>(Post.Orders, new CreateOrderProcessManager.Request() {
                     });
      
 	            var entity = context.Orders.First();
@@ -82,7 +82,7 @@ namespace IntegrationTests.Features
                         Order = getByIdResponse.Order
                     });
 
-                Assert.True(saveResponse.OrderId != default(int));
+                Assert.True(saveResponse.Order.OrderId != default(int));
             }
         }
         

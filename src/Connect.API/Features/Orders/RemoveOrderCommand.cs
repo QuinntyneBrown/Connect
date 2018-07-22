@@ -33,7 +33,6 @@ namespace Connect.API.Features.Orders
             {
                 var order = await _context.Orders.FindAsync(request.OrderId);
                 _context.Orders.Remove(order);
-                order.RaiseDomainEvent(new OrderCancelled(order.OrderId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }

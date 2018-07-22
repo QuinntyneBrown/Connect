@@ -3,7 +3,7 @@ using System;
 
 namespace Connect.Core.Models
 {
-    public class DigitalAsset: Entity
+    public class DigitalAsset: AggregateRoot
     {
         public Guid DigitalAssetId { get; set; }           
         public string Name { get; set; }        

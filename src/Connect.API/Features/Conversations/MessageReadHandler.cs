@@ -15,7 +15,7 @@ namespace Connect.API.Features.Conversations
 
         public async Task Handle(Core.DomainEvents.MessageRead @event, CancellationToken cancellationToken)
         {
-            await _hubContext.Clients.All.SendAsync("events", MessageRead.FromDomainEvent(@event), cancellationToken);
+            await _hubContext.Clients.All.SendAsync("events", @event, cancellationToken);
         }
     }
 }

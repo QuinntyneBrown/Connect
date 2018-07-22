@@ -40,8 +40,6 @@ namespace Connect.API.Features.Identity
                 
                 user.Password = _passwordHasher.HashPassword(user.Salt, request.Password);
                 
-                user.RaiseDomainEvent(new Core.DomainEvents.UserCreated(user));
-
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response()

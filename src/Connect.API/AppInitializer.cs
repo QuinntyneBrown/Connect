@@ -4,10 +4,14 @@ using Connect.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Connect.Core.Common;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Reflection;
 
 namespace Connect.API
 {
-    public class SeedData
+    public class AppInitializer: IDesignTimeDbContextFactory<AppDbContext>
     {
         public static void Seed(AppDbContext context)
         {
@@ -15,7 +19,19 @@ namespace Connect.API
             RoleConfiguration.Seed(context);
             UserConfiguration.Seed(context);
             OrderStatusesConfiguration.Seed(context);
+            ProductConfiguration.Seed(context);
             context.SaveChanges();
+        }
+
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .AddUserSecrets(typeof(Startup).GetTypeInfo().Assembly)
+                .Build();
+
+            return new AppDbContext(new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"])
+                .Options);
         }
 
         internal class RoleConfiguration {
@@ -77,12 +93,14 @@ namespace Connect.API
         {
             public static void Seed(AppDbContext context)
             {
-                context.OrderStatuses.Add(new OrderStatus()
+                if (context.OrderStatuses.FirstOrDefault(x => x.Name == nameof(OrderStatuses.AwaitingPayment)) == null)
                 {
+                    context.OrderStatuses.Add(new OrderStatus()
+                    {
 
-                    Name = nameof(OrderStatuses.AwaitingPayment)
-                });
-
+                        Name = nameof(OrderStatuses.AwaitingPayment)
+                    });
+                }
                 context.SaveChanges();
             }
         }
@@ -120,7 +138,14 @@ namespace Connect.API
         {
             public static void Seed(AppDbContext context)
             {
-
+                if(context.Products.FirstOrDefault(x => x.Name == "100 Credits") == null)
+                {
+                    context.Products.Add(new Product()
+                    {
+                        Name = "100 Credits",
+                        Description = "100 Credits"
+                    });
+                }
 
                 context.SaveChanges();
             }
