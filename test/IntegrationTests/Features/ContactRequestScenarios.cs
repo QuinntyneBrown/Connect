@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateContactRequestCommand.Request, CreateContactRequestCommand.Response>(Post.ContactRequests, new CreateContactRequestCommand.Request() {
-                        ContactRequest = new ContactRequestApiModel()
+                        ContactRequest = new ContactRequestDto()
                         {
                             Name = "Name",
                         }

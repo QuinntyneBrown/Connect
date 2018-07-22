@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<SaveDashboardCardCommand.Request, SaveDashboardCardCommand.Response>(Post.DashboardCards, new SaveDashboardCardCommand.Request() {
-                        DashboardCard = new DashboardCardApiModel()
+                        DashboardCard = new DashboardCardDto()
                         {
                        
                         }

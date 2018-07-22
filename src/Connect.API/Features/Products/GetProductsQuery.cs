@@ -14,7 +14,7 @@ namespace Connect.API.Features.Products
 
         public class Response
         {
-            public IEnumerable<ProductApiModel> Products { get; set; }
+            public IEnumerable<ProductDto> Products { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.Products
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Products = await _context.Products.Select(x => ProductApiModel.FromProduct(x)).ToListAsync()
+                    Products = await _context.Products.Select(x => ProductDto.FromProduct(x)).ToListAsync()
                 };
         }
     }

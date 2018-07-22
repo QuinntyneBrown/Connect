@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<SaveDigitalAssetCommand.Request, SaveDigitalAssetCommand.Response>(Post.DigitalAssets, new SaveDigitalAssetCommand.Request() {
-                        DigitalAsset = new DigitalAssetApiModel()
+                        DigitalAsset = new DigitalAssetDto()
                         {
                             Name = "Name",
                         }

@@ -16,7 +16,7 @@ namespace Connect.API.Features.Dashboards
 
         public class Response
         {
-            public DashboardApiModel Dashboard { get; set; }
+            public DashboardDto Dashboard { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -28,7 +28,7 @@ namespace Connect.API.Features.Dashboards
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards
+                    Dashboard = DashboardDto.FromDashboard(await _context.Dashboards
                         .Include(x => x.DashboardCards)
                         .SingleOrDefaultAsync(x => x.ProfileId == request.ProfileId))
                 };

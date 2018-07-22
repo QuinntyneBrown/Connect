@@ -25,7 +25,7 @@ namespace Connect.API.Features.Profiles
             public async Task Handle(DomainEvent notification, CancellationToken cancellationToken) {
                 await _hubContext.Clients.All.SendAsync("message", new {
                     Type = "[Profile] Saved",
-                    Payload = new { profile = ProfileApiModel.FromProfile(notification.Profile) }
+                    Payload = new { profile = ProfileDto.FromProfile(notification.Profile) }
                 }, cancellationToken);
             }
         }

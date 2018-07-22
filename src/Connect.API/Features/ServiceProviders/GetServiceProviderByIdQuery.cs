@@ -22,7 +22,7 @@ namespace Connect.API.Features.ServiceProviders
 
         public class Response
         {
-            public ServiceProviderApiModel ServiceProvider { get; set; }
+            public ServiceProviderDto ServiceProvider { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.ServiceProviders
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    ServiceProvider = ServiceProviderApiModel.FromServiceProvider(await _context.ServiceProviders.FindAsync(request.ServiceProviderId))
+                    ServiceProvider = ServiceProviderDto.FromServiceProvider(await _context.ServiceProviders.FindAsync(request.ServiceProviderId))
                 };
         }
     }

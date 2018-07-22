@@ -16,7 +16,7 @@ namespace Connect.API.Features.DashboardCards
 
         public class Response
         {
-            public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
+            public IEnumerable<DashboardCardDto> DashboardCards { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -29,7 +29,7 @@ namespace Connect.API.Features.DashboardCards
                 {
                     DashboardCards = await _context.DashboardCards
                     .Where(x => request.DashboardCardIds.Contains(x.DashboardCardId))
-                    .Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
+                    .Select(x => DashboardCardDto.FromDashboardCard(x)).ToListAsync()
                 };
         }
     }

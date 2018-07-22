@@ -25,7 +25,7 @@ namespace Connect.API.Features.Reports
             public async Task Handle(DomainEvent notification, CancellationToken cancellationToken) {
                 await _hubContext.Clients.All.SendAsync("message", new {
                     Type = "[Report] Saved",
-                    Payload = new { report = ReportApiModel.FromReport(notification.Report) }
+                    Payload = new { report = ReportDto.FromReport(notification.Report) }
                 }, cancellationToken);
             }
         }

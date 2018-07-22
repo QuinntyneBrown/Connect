@@ -22,7 +22,7 @@ namespace Connect.API.Features.Reports
 
         public class Response
         {
-            public ReportApiModel Report { get; set; }
+            public ReportDto Report { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Reports
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Report = ReportApiModel.FromReport(await _context.Reports.FindAsync(request.ReportId))
+                    Report = ReportDto.FromReport(await _context.Reports.FindAsync(request.ReportId))
                 };
         }
     }

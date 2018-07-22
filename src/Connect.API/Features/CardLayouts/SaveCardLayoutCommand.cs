@@ -17,7 +17,7 @@ namespace Connect.API.Features.CardLayouts
         }
 
         public class Request : IRequest<Response> {
-            public CardLayoutApiModel CardLayout { get; set; }
+            public CardLayoutDto CardLayout { get; set; }
         }
 
         public class Response

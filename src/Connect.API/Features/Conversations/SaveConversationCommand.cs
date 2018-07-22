@@ -17,7 +17,7 @@ namespace Connect.API.Features.Conversations
         }
 
         public class Request : IRequest<Response> {
-            public ConversationApiModel Conversation { get; set; }
+            public ConversationDto Conversation { get; set; }
         }
 
         public class Response

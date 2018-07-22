@@ -2,14 +2,14 @@ using Connect.Core.Models;
 
 namespace Connect.API.Features.Customers
 {
-    public class CustomerApiModel
+    public class CustomerDto
     {        
         public int CustomerId { get; set; }
         public string Name { get; set; }
         public int Credits { get; set; }
         public int ProfileId { get; set; }
-        public static CustomerApiModel FromCustomer(Customer customer)
-            => new CustomerApiModel
+        public static CustomerDto FromCustomer(Customer customer)
+            => new CustomerDto
             {
                 CustomerId = customer.CustomerId,
                 Name = customer.Name,

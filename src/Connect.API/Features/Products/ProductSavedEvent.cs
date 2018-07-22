@@ -25,7 +25,7 @@ namespace Connect.API.Features.Products
             public async Task Handle(DomainEvent notification, CancellationToken cancellationToken) {
                 await _hubContext.Clients.All.SendAsync("message", new {
                     Type = "[Product] Saved",
-                    Payload = new { product = ProductApiModel.FromProduct(notification.Product) }
+                    Payload = new { product = ProductDto.FromProduct(notification.Product) }
                 }, cancellationToken);
             }
         }

@@ -22,7 +22,7 @@ namespace Connect.API.Features.Conversations
 
         public class Response
         {
-            public ConversationApiModel Conversation { get; set; }
+            public ConversationDto Conversation { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Conversations
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Conversation = ConversationApiModel.FromConversation(await _context.Conversations.FindAsync(request.ConversationId))
+                    Conversation = ConversationDto.FromConversation(await _context.Conversations.FindAsync(request.ConversationId))
                 };
         }
     }

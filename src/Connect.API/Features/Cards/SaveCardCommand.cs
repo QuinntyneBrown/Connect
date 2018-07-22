@@ -17,7 +17,7 @@ namespace Connect.API.Features.Cards
         }
 
         public class Request : IRequest<Response> {
-            public CardApiModel Card { get; set; }
+            public CardDto Card { get; set; }
         }
 
         public class Response

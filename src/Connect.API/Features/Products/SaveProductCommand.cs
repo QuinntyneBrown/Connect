@@ -17,7 +17,7 @@ namespace Connect.API.Features.Products
         }
 
         public class Request : IRequest<Response> {
-            public ProductApiModel Product { get; set; }
+            public ProductDto Product { get; set; }
         }
 
         public class Response

@@ -14,7 +14,7 @@ namespace Connect.API.Features.Profiles
 
         public class Response
         {
-            public IEnumerable<ProfileTypeApiModel> ProfileTypes { get; set; }
+            public IEnumerable<ProfileTypeDto> ProfileTypes { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -25,7 +25,7 @@ namespace Connect.API.Features.Profiles
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    ProfileTypes = await _context.ProfileTypes.Select(x => ProfileTypeApiModel.FromProfileType(x)).ToListAsync()
+                    ProfileTypes = await _context.ProfileTypes.Select(x => ProfileTypeDto.FromProfileType(x)).ToListAsync()
                 };
         }
     }

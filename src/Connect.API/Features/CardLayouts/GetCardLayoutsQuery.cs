@@ -14,7 +14,7 @@ namespace Connect.API.Features.CardLayouts
 
         public class Response
         {
-            public IEnumerable<CardLayoutApiModel> CardLayouts { get; set; }
+            public IEnumerable<CardLayoutDto> CardLayouts { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.CardLayouts
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    CardLayouts = await _context.CardLayouts.Select(x => CardLayoutApiModel.FromCardLayout(x)).ToListAsync()
+                    CardLayouts = await _context.CardLayouts.Select(x => CardLayoutDto.FromCardLayout(x)).ToListAsync()
                 };
         }
     }

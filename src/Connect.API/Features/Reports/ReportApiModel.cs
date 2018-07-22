@@ -2,14 +2,14 @@ using Connect.Core.Models;
 
 namespace Connect.API.Features.Reports
 {
-    public class ReportApiModel
+    public class ReportDto
     {        
         public int ReportId { get; set; }
         public string Name { get; set; }
 
-        public static ReportApiModel FromReport(Report report)
+        public static ReportDto FromReport(Report report)
         {
-            var model = new ReportApiModel();
+            var model = new ReportDto();
             model.ReportId = report.ReportId;
             
             return model;

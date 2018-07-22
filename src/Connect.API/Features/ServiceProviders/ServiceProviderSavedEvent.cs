@@ -25,7 +25,7 @@ namespace Connect.API.Features.ServiceProviders
             public async Task Handle(DomainEvent notification, CancellationToken cancellationToken) {
                 await _hubContext.Clients.All.SendAsync("message", new {
                     Type = "[ServiceProvider] Saved",
-                    Payload = new { serviceProvider = ServiceProviderApiModel.FromServiceProvider(notification.ServiceProvider) }
+                    Payload = new { serviceProvider = ServiceProviderDto.FromServiceProvider(notification.ServiceProvider) }
                 }, cancellationToken);
             }
         }

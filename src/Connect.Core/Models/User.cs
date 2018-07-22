@@ -1,4 +1,5 @@
 using Connect.Core.Common;
+using Connect.Core.DomainEvents;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
@@ -21,5 +22,21 @@ namespace Connect.Core.Models
         public byte[] Salt { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         = new HashSet<UserRole>();
+
+        public void SignOut() => Apply(new UserSignedOut());
+
+        protected override void EnsureValidState()
+        {
+            
+        }
+
+        protected override void When(DomainEvent @event)
+        {
+            switch(@event)
+            {
+                case UserSignedOut userSignedOut:
+                    break;
+            }
+        }
     }
 }

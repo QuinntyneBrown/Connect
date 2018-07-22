@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace Connect.API.Features.Profiles
 {
-    public class ProfileApiModel
+    public class ProfileDto
     {        
         public int ProfileId { get; set; }
         public string Name { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public ICollection<ProfileImageApiModel> ProfileImages { get; set; }
-        = new HashSet<ProfileImageApiModel>();
+        public ICollection<ProfileImageDto> ProfileImages { get; set; }
+        = new HashSet<ProfileImageDto>();
         public int ProfileTypeId { get; set; }
-        public static ProfileApiModel FromProfile(Profile profile)
+        public static ProfileDto FromProfile(Profile profile)
         {
-            var model = new ProfileApiModel();
+            var model = new ProfileDto();
             model.ProfileId = profile.ProfileId;
             model.Name = profile.Name;
             model.Firstname = profile.Firstname;

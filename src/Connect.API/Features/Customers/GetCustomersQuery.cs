@@ -14,7 +14,7 @@ namespace Connect.API.Features.Customers
 
         public class Response
         {
-            public IEnumerable<CustomerApiModel> Customers { get; set; }
+            public IEnumerable<CustomerDto> Customers { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.Customers
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Customers = await _context.Customers.Select(x => CustomerApiModel.FromCustomer(x)).ToListAsync()
+                    Customers = await _context.Customers.Select(x => CustomerDto.FromCustomer(x)).ToListAsync()
                 };
         }
     }

@@ -18,7 +18,7 @@ namespace Connect.API.Features.ContactRequests
         }
 
         public class Request : IRequest<Response> {
-            public ContactRequestApiModel ContactRequest { get; set; }
+            public ContactRequestDto ContactRequest { get; set; }
         }
 
         public class Response

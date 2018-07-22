@@ -17,7 +17,7 @@ namespace Connect.API.Features.Reports
         }
 
         public class Request : IRequest<Response> {
-            public ReportApiModel Report { get; set; }
+            public ReportDto Report { get; set; }
         }
 
         public class Response

@@ -22,7 +22,7 @@ namespace Connect.API.Features.Profiles
 
         public class Response
         {
-            public ProfileApiModel Profile { get; set; }
+            public ProfileDto Profile { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Profiles
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Profile = ProfileApiModel.FromProfile(await _context.Profiles.FindAsync(request.ProfileId))
+                    Profile = ProfileDto.FromProfile(await _context.Profiles.FindAsync(request.ProfileId))
                 };
         }
     }

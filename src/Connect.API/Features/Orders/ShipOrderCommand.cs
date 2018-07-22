@@ -12,7 +12,7 @@ namespace Connect.API.Features.Orders
     public class ShipOrderCommand
     {
         public class Request : IRequest<Response> {
-            public OrderApiModel Order { get; set; }
+            public OrderDto Order { get; set; }
         }
 
         public class Response { }

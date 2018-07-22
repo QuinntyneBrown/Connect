@@ -14,7 +14,7 @@ namespace Connect.API.Features.Cards
 
         public class Response
         {
-            public IEnumerable<CardApiModel> Cards { get; set; }
+            public IEnumerable<CardDto> Cards { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.Cards
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Cards = await _context.Cards.Select(x => CardApiModel.FromCard(x)).ToListAsync()
+                    Cards = await _context.Cards.Select(x => CardDto.FromCard(x)).ToListAsync()
                 };
         }
     }

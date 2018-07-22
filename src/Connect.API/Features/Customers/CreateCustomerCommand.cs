@@ -17,7 +17,7 @@ namespace Connect.API.Features.Customers
         }
 
         public class Request : IRequest<Response> {
-            public CustomerApiModel Customer { get; set; }
+            public CustomerDto Customer { get; set; }
         }
 
         public class Response

@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateServiceProviderCommand.Request, CreateServiceProviderCommand.Response>(Post.ServiceProviders, new CreateServiceProviderCommand.Request() {
-                        ServiceProvider = new ServiceProviderApiModel()
+                        ServiceProvider = new ServiceProviderDto()
                         {
                             Name = "Name",
                         }

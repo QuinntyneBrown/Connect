@@ -20,7 +20,7 @@ namespace Connect.API.Features.DashboardCards
         }
 
         public class Request : IRequest<Response> {
-            public DashboardCardApiModel DashboardCard { get; set; }
+            public DashboardCardDto DashboardCard { get; set; }
         }
 
         public class Response
@@ -46,7 +46,7 @@ namespace Connect.API.Features.DashboardCards
                     var maxLeft = 1;
 
                     foreach(var dc in dashboard.DashboardCards) {
-                        var options = JsonConvert.DeserializeObject<DashboardCardApiModel.OptionsApiModel>(dc.Options);
+                        var options = JsonConvert.DeserializeObject<DashboardCardDto.OptionsDto>(dc.Options);
 
                         if ((options.Left + options.Width) > maxLeft)
                             maxLeft = options.Left + options.Width;

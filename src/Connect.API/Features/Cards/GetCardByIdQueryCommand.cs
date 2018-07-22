@@ -22,7 +22,7 @@ namespace Connect.API.Features.Cards
 
         public class Response
         {
-            public CardApiModel Card { get; set; }
+            public CardDto Card { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Cards
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Card = CardApiModel.FromCard(await _context.Cards.FindAsync(request.CardId))
+                    Card = CardDto.FromCard(await _context.Cards.FindAsync(request.CardId))
                 };
         }
     }

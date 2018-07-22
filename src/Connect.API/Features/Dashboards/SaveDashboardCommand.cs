@@ -17,7 +17,7 @@ namespace Connect.API.Features.Dashboards
         }
 
         public class Request : IRequest<Response> {
-            public DashboardApiModel Dashboard { get; set; }
+            public DashboardDto Dashboard { get; set; }
         }
 
         public class Response

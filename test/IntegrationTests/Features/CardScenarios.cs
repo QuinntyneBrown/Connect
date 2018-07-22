@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<SaveCardCommand.Request, SaveCardCommand.Response>(Post.Cards, new SaveCardCommand.Request() {
-                        Card = new CardApiModel()
+                        Card = new CardDto()
                         {
                             Name = "Name",
                         }

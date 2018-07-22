@@ -18,7 +18,7 @@ namespace Connect.API.Features.Profiles
         }
 
         public class Request : IRequest<Response> {
-            public ProfileApiModel Profile { get; set; }
+            public ProfileDto Profile { get; set; }
         }
 
         public class Response

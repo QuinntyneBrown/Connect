@@ -22,7 +22,7 @@ namespace Connect.API.Features.CardLayouts
 
         public class Response
         {
-            public CardLayoutApiModel CardLayout { get; set; }
+            public CardLayoutDto CardLayout { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.CardLayouts
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    CardLayout = CardLayoutApiModel.FromCardLayout(await _context.CardLayouts.FindAsync(request.CardLayoutId))
+                    CardLayout = CardLayoutDto.FromCardLayout(await _context.CardLayouts.FindAsync(request.CardLayoutId))
                 };
         }
     }

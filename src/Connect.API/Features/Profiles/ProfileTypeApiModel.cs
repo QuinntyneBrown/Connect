@@ -2,12 +2,12 @@
 
 namespace Connect.API.Features.Profiles
 {
-    public class ProfileTypeApiModel
+    public class ProfileTypeDto
     {
         public int ProfileTypeId { get; set; }
         public string Name { get; set; }        
-        public static ProfileTypeApiModel FromProfileType(ProfileType profileType)
-            => new ProfileTypeApiModel
+        public static ProfileTypeDto FromProfileType(ProfileType profileType)
+            => new ProfileTypeDto
             {
                 ProfileTypeId = profileType.ProfileTypeId,
                 Name = profileType.Name

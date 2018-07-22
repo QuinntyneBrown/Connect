@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Connect.API.Features.Profiles
 {
-    public class ProfileImageApiModel
+    public class ProfileImageDto
     {
     }
 }

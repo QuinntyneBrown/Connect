@@ -19,12 +19,12 @@ namespace Connect.API.Features.Orders
         }
 
         public class Request : IRequest<Response> {
-            public OrderApiModel Order { get; set; }
+            public OrderDto Order { get; set; }
         }
 
         public class Response
         {			
-            public OrderApiModel Order { get; set; }
+            public OrderDto Order { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -50,7 +50,7 @@ namespace Connect.API.Features.Orders
                 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { Order = OrderApiModel.FromOrder(order) };
+                return new Response() { Order = OrderDto.FromOrder(order) };
             }
         }
     }

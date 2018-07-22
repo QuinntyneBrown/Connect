@@ -14,7 +14,7 @@ namespace Connect.API.Features.Reports
 
         public class Response
         {
-            public IEnumerable<ReportApiModel> Reports { get; set; }
+            public IEnumerable<ReportDto> Reports { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.Reports
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Reports = await _context.Reports.Select(x => ReportApiModel.FromReport(x)).ToListAsync()
+                    Reports = await _context.Reports.Select(x => ReportDto.FromReport(x)).ToListAsync()
                 };
         }
     }

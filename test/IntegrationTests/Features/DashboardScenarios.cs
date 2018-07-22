@@ -19,7 +19,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<SaveDashboardCommand.Request, SaveDashboardCommand.Response>(Post.Dashboards, new SaveDashboardCommand.Request() {
-                        Dashboard = new DashboardApiModel()
+                        Dashboard = new DashboardDto()
                         {
                             Name = "Name",
                         }

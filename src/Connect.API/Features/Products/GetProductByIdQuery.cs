@@ -22,7 +22,7 @@ namespace Connect.API.Features.Products
 
         public class Response
         {
-            public ProductApiModel Product { get; set; }
+            public ProductDto Product { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Products
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Product = ProductApiModel.FromProduct(await _context.Products.FindAsync(request.ProductId))
+                    Product = ProductDto.FromProduct(await _context.Products.FindAsync(request.ProductId))
                 };
         }
     }

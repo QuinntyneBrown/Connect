@@ -22,7 +22,7 @@ namespace Connect.API.Features.ContactRequests
 
         public class Response
         {
-            public ContactRequestApiModel ContactRequest { get; set; }
+            public ContactRequestDto ContactRequest { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.ContactRequests
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    ContactRequest = ContactRequestApiModel.FromContactRequest(await _context.ContactRequests.FindAsync(request.ContactRequestId))
+                    ContactRequest = ContactRequestDto.FromContactRequest(await _context.ContactRequests.FindAsync(request.ContactRequestId))
                 };
         }
     }

@@ -22,7 +22,7 @@ namespace Connect.API.Features.Orders
 
         public class Response
         {
-            public OrderApiModel Order { get; set; }
+            public OrderDto Order { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.Orders
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Order = OrderApiModel.FromOrder(await _context.Orders.FindAsync(request.OrderId))
+                    Order = OrderDto.FromOrder(await _context.Orders.FindAsync(request.OrderId))
                 };
         }
     }

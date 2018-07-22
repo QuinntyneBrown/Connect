@@ -22,7 +22,7 @@ namespace Connect.API.Features.DashboardCards
 
         public class Response
         {
-            public DashboardCardApiModel DashboardCard { get; set; }
+            public DashboardCardDto DashboardCard { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Connect.API.Features.DashboardCards
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    DashboardCard = DashboardCardApiModel.FromDashboardCard(await _context.DashboardCards.FindAsync(request.DashboardCardId))
+                    DashboardCard = DashboardCardDto.FromDashboardCard(await _context.DashboardCards.FindAsync(request.DashboardCardId))
                 };
         }
     }

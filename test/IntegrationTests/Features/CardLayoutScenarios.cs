@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<SaveCardLayoutCommand.Request, SaveCardLayoutCommand.Response>(Post.CardLayouts, new SaveCardLayoutCommand.Request() {
-                        CardLayout = new CardLayoutApiModel()
+                        CardLayout = new CardLayoutDto()
                         {
                             Name = "Name",
                         }

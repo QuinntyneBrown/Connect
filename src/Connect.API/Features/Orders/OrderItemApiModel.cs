@@ -2,12 +2,12 @@
 
 namespace Connect.API.Features.Orders
 {
-    public class OrderItemApiModel
+    public class OrderItemDto
     {
         public int ProductId { get; set; }
 
-        public static OrderItemApiModel FromModel(OrderItem item)
-            => new OrderItemApiModel()
+        public static OrderItemDto FromModel(OrderItem item)
+            => new OrderItemDto()
             {
                 ProductId = item.ProductId
             };

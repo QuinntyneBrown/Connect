@@ -18,7 +18,7 @@ namespace Connect.API.Features.ServiceProviders
         }
 
         public class Request : IRequest<Response> {
-            public ServiceProviderApiModel ServiceProvider { get; set; }
+            public ServiceProviderDto ServiceProvider { get; set; }
         }
 
         public class Response

@@ -9,7 +9,7 @@ namespace Connect.API.Features.DashboardCards
     public class SaveDashboardCardRangeCommand
     {
         public class Request : IRequest<Response> {
-            public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
+            public IEnumerable<DashboardCardDto> DashboardCards { get; set; }
         }
 
         public class Response

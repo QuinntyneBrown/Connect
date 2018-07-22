@@ -25,7 +25,7 @@ namespace Connect.API.Features.Customers
             public async Task Handle(DomainEvent notification, CancellationToken cancellationToken) {
                 await _hubContext.Clients.All.SendAsync("message", new {
                     Type = "[Customer] Saved",
-                    Payload = new { customer = CustomerApiModel.FromCustomer(notification.Customer) }
+                    Payload = new { customer = CustomerDto.FromCustomer(notification.Customer) }
                 }, cancellationToken);
             }
         }

@@ -2,14 +2,14 @@ using Connect.Core.Models;
 
 namespace Connect.API.Features.ContactRequests
 {
-    public class ContactRequestApiModel
+    public class ContactRequestDto
     {        
         public int ContactRequestId { get; set; }
         public string Name { get; set; }
 
-        public static ContactRequestApiModel FromContactRequest(ContactRequest contactRequest)
+        public static ContactRequestDto FromContactRequest(ContactRequest contactRequest)
         {
-            var model = new ContactRequestApiModel();
+            var model = new ContactRequestDto();
             model.ContactRequestId = contactRequest.ContactRequestId;
             model.Name = contactRequest.Name;
             return model;

@@ -14,7 +14,7 @@ namespace Connect.API.Features.ServiceProviders
 
         public class Response
         {
-            public IEnumerable<ServiceProviderApiModel> ServiceProviders { get; set; }
+            public IEnumerable<ServiceProviderDto> ServiceProviders { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.ServiceProviders
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    ServiceProviders = await _context.ServiceProviders.Select(x => ServiceProviderApiModel.FromServiceProvider(x)).ToListAsync()
+                    ServiceProviders = await _context.ServiceProviders.Select(x => ServiceProviderDto.FromServiceProvider(x)).ToListAsync()
                 };
         }
     }

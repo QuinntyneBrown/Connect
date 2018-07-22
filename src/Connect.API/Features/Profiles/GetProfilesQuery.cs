@@ -14,7 +14,7 @@ namespace Connect.API.Features.Profiles
 
         public class Response
         {
-            public IEnumerable<ProfileApiModel> Profiles { get; set; }
+            public IEnumerable<ProfileDto> Profiles { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -28,7 +28,7 @@ namespace Connect.API.Features.Profiles
                 {
                     Profiles = await _context.Profiles
                     .Include(x => x.ProfileType)
-                    .Select(x => ProfileApiModel.FromProfile(x)).ToListAsync()
+                    .Select(x => ProfileDto.FromProfile(x)).ToListAsync()
                 };
         }
     }

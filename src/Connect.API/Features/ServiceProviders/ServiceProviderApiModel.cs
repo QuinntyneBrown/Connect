@@ -2,14 +2,14 @@ using Connect.Core.Models;
 
 namespace Connect.API.Features.ServiceProviders
 {
-    public class ServiceProviderApiModel
+    public class ServiceProviderDto
     {        
         public int ServiceProviderId { get; set; }
         public string Name { get; set; }
 
-        public static ServiceProviderApiModel FromServiceProvider(ServiceProvider serviceProvider)
+        public static ServiceProviderDto FromServiceProvider(ServiceProvider serviceProvider)
         {
-            var model = new ServiceProviderApiModel();
+            var model = new ServiceProviderDto();
             model.ServiceProviderId = serviceProvider.ServiceProviderId;
             model.Name = serviceProvider.Name;
             return model;

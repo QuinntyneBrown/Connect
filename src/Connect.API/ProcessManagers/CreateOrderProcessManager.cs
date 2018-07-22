@@ -13,8 +13,8 @@ namespace Connect.API.Sagas
     public class CreateOrderProcessManager
     {
         public class Request : IRequest<Response> {
-            public ICollection<OrderItemApiModel> Items { get; set; } 
-                = new HashSet<OrderItemApiModel>();
+            public ICollection<OrderItemDto> Items { get; set; } 
+                = new HashSet<OrderItemDto>();
         }
 
         public class Response
@@ -48,7 +48,7 @@ namespace Connect.API.Sagas
                     .Single();
 
                 var orderResponse = await _mediator.Send(new CreateOrderCommand.Request() {
-                    Order = new OrderApiModel()
+                    Order = new OrderDto()
                     {
                         CustomerId = customer.CustomerId,
                         Items = request.Items

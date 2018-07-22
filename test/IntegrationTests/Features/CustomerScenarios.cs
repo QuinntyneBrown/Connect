@@ -21,7 +21,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateCustomerCommand.Request, CreateCustomerCommand.Response>(Post.Customers, new CreateCustomerCommand.Request() {
-                        Customer = new CustomerApiModel()
+                        Customer = new CustomerDto()
                         {
                             Name = "Name",
                         }

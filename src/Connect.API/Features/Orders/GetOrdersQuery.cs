@@ -14,7 +14,7 @@ namespace Connect.API.Features.Orders
 
         public class Response
         {
-            public IEnumerable<OrderApiModel> Orders { get; set; }
+            public IEnumerable<OrderDto> Orders { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Connect.API.Features.Orders
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Orders = await _context.Orders.Select(x => OrderApiModel.FromOrder(x)).ToListAsync()
+                    Orders = await _context.Orders.Select(x => OrderDto.FromOrder(x)).ToListAsync()
                 };
         }
     }
