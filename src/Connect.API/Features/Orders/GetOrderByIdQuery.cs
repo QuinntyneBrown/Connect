@@ -12,12 +12,12 @@ namespace Connect.API.Features.Orders
         {
             public Validator()
             {
-                RuleFor(request => request.OrderId).NotEqual(0);
+                RuleFor(request => request.OrderId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest<Response> {
-            public int OrderId { get; set; }
+            public System.Guid OrderId { get; set; }
         }
 
         public class Response

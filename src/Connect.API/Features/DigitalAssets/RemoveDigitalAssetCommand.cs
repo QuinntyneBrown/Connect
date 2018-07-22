@@ -13,13 +13,13 @@ namespace Connect.API.Features.DigitalAssets
         {
             public Validator()
             {
-                RuleFor(request => request.DigitalAssetId).NotEqual(0);
+                RuleFor(request => request.DigitalAssetId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int DigitalAssetId { get; set; }
+            public System.Guid DigitalAssetId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

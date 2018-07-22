@@ -6,8 +6,8 @@ namespace Connect.Core.Models
     {
         public ServiceProvider()
         {
-            ProfileTypeId = (int)ProfileTypes.ServiceProvider;
+
         }
-        public int ServiceProviderId { get; set; }           		        
+        public System.Guid ServiceProviderId { get; set; }           		        
     }
 }

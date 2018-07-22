@@ -5,8 +5,8 @@ namespace Connect.API.Features.DashboardCards
 {
     public class DashboardCardDto
     {        
-        public int DashboardCardId { get; set; }
-        public int DashboardId { get; set; }
+        public System.Guid DashboardCardId { get; set; }
+        public System.Guid DashboardId { get; set; }
         public int? CardId { get; set; }
         public int? CardLayoutId { get; set; }
         public OptionsDto Options { get; set; }

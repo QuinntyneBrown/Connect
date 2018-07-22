@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetDigitalAssetByIdQuery.Response>(Get.DigitalAssetById(1));
 
-                Assert.True(response.DigitalAsset.DigitalAssetId != default(Guid));
+                Assert.True(response.DigitalAsset.DigitalAssetId != default(System.Guid));
             }
         }
         
@@ -66,7 +66,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetDigitalAssetByIdQuery.Response>(Get.DigitalAssetById(1));
 
-                Assert.True(getByIdResponse.DigitalAsset.DigitalAssetId != default(Guid));
+                Assert.True(getByIdResponse.DigitalAsset.DigitalAssetId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<SaveDigitalAssetCommand.Request, SaveDigitalAssetCommand.Response>(Post.DigitalAssets, new SaveDigitalAssetCommand.Request()
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                         DigitalAsset = getByIdResponse.DigitalAsset
                     });
 
-                Assert.True(saveResponse.DigitalAssetId != default(Guid));
+                Assert.True(saveResponse.DigitalAssetId != default(System.Guid));
             }
         }
         

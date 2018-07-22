@@ -11,7 +11,7 @@ namespace Connect.API.Features.Dashboards
     public class GetDashboardByProfileIdQuery
     {
         public class Request : IRequest<Response> {
-            public int ProfileId { get; set; }
+            public System.Guid ProfileId { get; set; }
         }
 
         public class Response

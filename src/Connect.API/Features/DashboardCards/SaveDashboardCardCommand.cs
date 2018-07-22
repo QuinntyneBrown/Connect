@@ -25,7 +25,7 @@ namespace Connect.API.Features.DashboardCards
 
         public class Response
         {            
-            public int DashboardCardId { get; set; }
+            public System.Guid DashboardCardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

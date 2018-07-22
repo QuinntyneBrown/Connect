@@ -4,7 +4,7 @@ namespace Connect.API.Features.Products
 {
     public class ProductDto
     {        
-        public int ProductId { get; set; }
+        public System.Guid ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public static ProductDto FromProduct(Product product)

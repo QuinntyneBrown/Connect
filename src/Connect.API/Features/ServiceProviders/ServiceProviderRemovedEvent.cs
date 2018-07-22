@@ -1,6 +1,7 @@
 using Connect.Core;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,8 +11,8 @@ namespace Connect.API.Features.ServiceProviders
     {
         public class DomainEvent : INotification
         {
-            public DomainEvent(int serviceProviderId) => ServiceProviderId = serviceProviderId;
-            public int ServiceProviderId { get; set; }
+            public DomainEvent(System.Guid serviceProviderId) => ServiceProviderId = serviceProviderId;
+            public System.Guid ServiceProviderId { get; set; }
         }
 
         public class Handler : INotificationHandler<DomainEvent>

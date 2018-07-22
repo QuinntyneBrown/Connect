@@ -53,7 +53,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetDashboardCardByIdQuery.Response>(Get.DashboardCardById(1));
 
-                Assert.True(response.DashboardCard.DashboardCardId != default(int));
+                Assert.True(response.DashboardCard.DashboardCardId != default(System.Guid));
             }
         }
         
@@ -65,7 +65,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetDashboardCardByIdQuery.Response>(Get.DashboardCardById(1));
 
-                Assert.True(getByIdResponse.DashboardCard.DashboardCardId != default(int));
+                Assert.True(getByIdResponse.DashboardCard.DashboardCardId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<SaveDashboardCardCommand.Request, SaveDashboardCardCommand.Response>(Post.DashboardCards, new SaveDashboardCardCommand.Request()
@@ -73,7 +73,7 @@ namespace IntegrationTests.Features
                         DashboardCard = getByIdResponse.DashboardCard
                     });
 
-                Assert.True(saveResponse.DashboardCardId != default(int));
+                Assert.True(saveResponse.DashboardCardId != default(System.Guid));
             }
         }
         

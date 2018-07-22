@@ -26,7 +26,7 @@ namespace IntegrationTests.Features
                     .PostAsAsync<CreateProfileProcessManager.Request, CreateProfileProcessManager.Response>(ProfileScenarioBase.Post.Profiles, new CreateProfileProcessManager.Request()
                     {
                         Name = "Name",
-                        ProfileTypeId = (int)ProfileTypes.Customer,
+
                         Username = "profileUsername",
                         Password = "P@ssw0rd",
                         ConfirmPassword = "P@ssw0rd"
@@ -62,7 +62,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetOrderByIdQuery.Response>(Get.OrderById(1));
 
-                Assert.True(response.Order.OrderId != default(int));
+                Assert.True(response.Order.OrderId != default(System.Guid));
             }
         }
         
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetOrderByIdQuery.Response>(Get.OrderById(1));
 
-                Assert.True(getByIdResponse.Order.OrderId != default(int));
+                Assert.True(getByIdResponse.Order.OrderId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<CreateOrderCommand.Request, CreateOrderCommand.Response>(Post.Orders, new CreateOrderCommand.Request()
@@ -82,7 +82,7 @@ namespace IntegrationTests.Features
                         Order = getByIdResponse.Order
                     });
 
-                Assert.True(saveResponse.Order.OrderId != default(int));
+                Assert.True(saveResponse.Order.OrderId != default(System.Guid));
             }
         }
         

@@ -5,13 +5,13 @@ namespace Connect.API.Features.Profiles
 {
     public class ProfileDto
     {        
-        public int ProfileId { get; set; }
+        public System.Guid ProfileId { get; set; }
         public string Name { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public ICollection<ProfileImageDto> ProfileImages { get; set; }
         = new HashSet<ProfileImageDto>();
-        public int ProfileTypeId { get; set; }
+        public System.Guid ProfileTypeId { get; set; }
         public static ProfileDto FromProfile(Profile profile)
         {
             var model = new ProfileDto();

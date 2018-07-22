@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetCardLayoutByIdQuery.Response>(Get.CardLayoutById(1));
 
-                Assert.True(response.CardLayout.CardLayoutId != default(int));
+                Assert.True(response.CardLayout.CardLayoutId != default(System.Guid));
             }
         }
         
@@ -66,7 +66,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetCardLayoutByIdQuery.Response>(Get.CardLayoutById(1));
 
-                Assert.True(getByIdResponse.CardLayout.CardLayoutId != default(int));
+                Assert.True(getByIdResponse.CardLayout.CardLayoutId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<SaveCardLayoutCommand.Request, SaveCardLayoutCommand.Response>(Post.CardLayouts, new SaveCardLayoutCommand.Request()
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                         CardLayout = getByIdResponse.CardLayout
                     });
 
-                Assert.True(saveResponse.CardLayoutId != default(int));
+                Assert.True(saveResponse.CardLayoutId != default(System.Guid));
             }
         }
         

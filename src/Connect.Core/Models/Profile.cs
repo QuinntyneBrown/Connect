@@ -6,10 +6,10 @@ namespace Connect.Core.Models
 {
     public class Profile: AggregateRoot
     {
-        public int ProfileId { get; set; }
+        public System.Guid ProfileId { get; set; }
         [ForeignKey("User")]
-        public int UserId { get; set; }
-        public int ProfileTypeId { get; set; }
+        public System.Guid UserId { get; set; }
+        public System.Guid ProfileTypeId { get; set; }
         public string Name { get; set; }        
         public string Firstname { get; set; }
         public string Lastname { get; set; }

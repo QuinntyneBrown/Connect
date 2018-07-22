@@ -1,10 +1,11 @@
 using Connect.Core.Models;
+using System;
 
 namespace Connect.API.Features.Reports
 {
     public class ReportDto
     {        
-        public int ReportId { get; set; }
+        public System.Guid ReportId { get; set; }
         public string Name { get; set; }
 
         public static ReportDto FromReport(Report report)

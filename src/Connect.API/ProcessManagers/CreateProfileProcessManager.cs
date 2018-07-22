@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Connect.API.Features.Identity;
 using Connect.API.Features.Profiles;
+using System;
 
 namespace Connect.API.Sagas
 {
@@ -17,12 +18,12 @@ namespace Connect.API.Sagas
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
             public string Name { get; set; }
-            public int ProfileTypeId { get; set; }
+            public System.Guid ProfileTypeId { get; set; }
         }
 
         public class Response
         {
-            public int ProfileId { get;set; }
+            public System.Guid ProfileId { get;set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

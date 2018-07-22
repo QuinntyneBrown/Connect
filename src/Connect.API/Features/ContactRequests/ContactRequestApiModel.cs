@@ -4,7 +4,7 @@ namespace Connect.API.Features.ContactRequests
 {
     public class ContactRequestDto
     {        
-        public int ContactRequestId { get; set; }
+        public System.Guid ContactRequestId { get; set; }
         public string Name { get; set; }
 
         public static ContactRequestDto FromContactRequest(ContactRequest contactRequest)

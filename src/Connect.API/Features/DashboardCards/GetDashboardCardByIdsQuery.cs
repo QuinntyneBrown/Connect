@@ -11,7 +11,7 @@ namespace Connect.API.Features.DashboardCards
     public class GetDashboardCardByIdsQuery
     {
         public class Request : IRequest<Response> {
-            public int[] DashboardCardIds { get; set; }
+            public System.Guid[] DashboardCardIds { get; set; }
         }
 
         public class Response

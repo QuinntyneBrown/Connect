@@ -4,7 +4,7 @@ namespace Connect.API.Features.Cards
 {
     public class CardDto
     {        
-        public int CardId { get; set; }
+        public System.Guid CardId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 

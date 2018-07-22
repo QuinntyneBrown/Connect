@@ -22,7 +22,7 @@ namespace Connect.API.Features.Conversations
 
         public class Response
         {			
-            public int ConversationId { get; set; }
+            public System.Guid ConversationId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

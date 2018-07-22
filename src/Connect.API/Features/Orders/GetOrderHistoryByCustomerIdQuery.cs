@@ -11,7 +11,7 @@ namespace Connect.API.Features.Orders
     public class GetOrderHistoryByCustomerIdQuery
     {
         public class Request : IRequest<Response> {
-            public int CustomerId { get; set; }
+            public System.Guid CustomerId { get; set; }
         }
 
         public class Response

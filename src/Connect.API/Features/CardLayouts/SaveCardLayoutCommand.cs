@@ -22,7 +22,7 @@ namespace Connect.API.Features.CardLayouts
 
         public class Response
         {			
-            public int CardLayoutId { get; set; }
+            public System.Guid CardLayoutId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

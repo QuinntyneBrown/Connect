@@ -10,8 +10,8 @@ namespace Connect.API.Features.Profiles
     {
         public class DomainEvent : INotification
         {
-            public DomainEvent(int profileId) => ProfileId = profileId;
-            public int ProfileId { get; set; }
+            public DomainEvent(System.Guid profileId) => ProfileId = profileId;
+            public System.Guid ProfileId { get; set; }
         }
 
         public class Handler : INotificationHandler<DomainEvent>

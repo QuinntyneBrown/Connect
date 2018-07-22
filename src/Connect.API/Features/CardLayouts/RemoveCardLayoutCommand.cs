@@ -13,13 +13,13 @@ namespace Connect.API.Features.CardLayouts
         {
             public Validator()
             {
-                RuleFor(request => request.CardLayoutId).NotEqual(0);
+                RuleFor(request => request.CardLayoutId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int CardLayoutId { get; set; }
+            public System.Guid CardLayoutId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

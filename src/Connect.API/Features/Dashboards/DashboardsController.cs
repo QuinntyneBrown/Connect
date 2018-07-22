@@ -30,7 +30,7 @@ namespace Connect.API.Features.Dashboards
         public async Task<ActionResult<GetDashboardByProfileIdQuery.Response>> Get()
         {
             var profileClaim = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "ProfileId");
-            var profileId = Convert.ToInt16(profileClaim.Value);
+            var profileId = new Guid(profileClaim.Value);
             return await _mediator.Send(new GetDashboardByProfileIdQuery.Request()
             {
                 ProfileId = profileId

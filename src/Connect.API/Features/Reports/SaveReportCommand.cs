@@ -22,7 +22,7 @@ namespace Connect.API.Features.Reports
 
         public class Response
         {			
-            public int ReportId { get; set; }
+            public System.Guid ReportId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

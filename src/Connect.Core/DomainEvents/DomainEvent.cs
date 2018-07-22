@@ -5,8 +5,8 @@ namespace Connect.Core.DomainEvents
 {
     public class DomainEvent : INotification
     {
-        public Guid CorrelationId { get; set; }
-        public Guid CausationId { get; set; }
-        public Guid ActivityId { get; set; }
+        public System.Guid CorrelationId { get; set; }
+        public System.Guid CausationId { get; set; }
+        public System.Guid ActivityId { get; set; }
     }
 }

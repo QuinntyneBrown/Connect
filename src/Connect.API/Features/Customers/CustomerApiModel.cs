@@ -4,10 +4,10 @@ namespace Connect.API.Features.Customers
 {
     public class CustomerDto
     {        
-        public int CustomerId { get; set; }
+        public System.Guid CustomerId { get; set; }
         public string Name { get; set; }
-        public int Credits { get; set; }
-        public int ProfileId { get; set; }
+        public System.Guid Credits { get; set; }
+        public System.Guid ProfileId { get; set; }
         public static CustomerDto FromCustomer(Customer customer)
             => new CustomerDto
             {

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace Connect.API
 {
@@ -37,12 +38,10 @@ namespace Connect.API
         internal class RoleConfiguration {
             public static void Seed(AppDbContext context)
             {
-                if (context.Roles.FirstOrDefault(x => x.Name == "Admin") == null) {                    
-                    context.Roles.Add(new Role()
-                    {
-                        Name = "Admin"
-                    });
-                }
+                var eventStore = new EventStore(context);
+
+                if (eventStore.Query<Role>("Name", "Admin") == null)
+                    eventStore.Save(new Role("Admin"));
 
                 context.SaveChanges();
             }
@@ -52,37 +51,23 @@ namespace Connect.API
         {
             public static void Seed(AppDbContext context)
             {
-                if (context.Users.FirstOrDefault(x => x.Username == "quinntynebrown@gmail.com") == null)
+                var eventStore = new EventStore(context);
+
+                if (eventStore.Query<User>("Username", "quinntynebrown@gmail.com") == null)
                 {
-                    var user = new User()
+                    var salt = new byte[128 / 8];
+                    using (var rng = RandomNumberGenerator.Create())
                     {
-                        Username = "quinntynebrown@gmail.com"
-                    };
-                    user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");
+                        rng.GetBytes(salt);
+                    }
 
-                    user.UserRoles.Add(new UserRole()
-                    {
-                        RoleId = context.Roles.Single(x => x.Name == "Admin").RoleId
-                    });
+                    var user = new User(
+                        "quinntynebrown@gmail.com",
+                        salt,
+                        new PasswordHasher().HashPassword(salt, "P@ssw0rd")
+                        );
 
-                    context.Users.Add(user);
-                }
-                
-                if (context.Users.FirstOrDefault(x => x.Username == "quinntyne@hotmail.com") == null)
-                {
-                    var user = new User()
-                    {
-                        Username = "quinntyne@hotmail.com"
-                    };
-
-                    user.UserRoles.Add(new UserRole()
-                    {
-                        RoleId = context.Roles.Single(x => x.Name == "Admin").RoleId
-                    });
-
-                    user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");
-
-                    context.Users.Add(user);
+                    eventStore.Save(user);
                 }
 
                 context.SaveChanges();

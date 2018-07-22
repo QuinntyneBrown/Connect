@@ -14,13 +14,13 @@ namespace Connect.API.Features.Customers
         {
             public Validator()
             {
-                RuleFor(request => request.CustomerId).NotEqual(0);
+                RuleFor(request => request.CustomerId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int CustomerId { get; set; }
+            public System.Guid CustomerId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

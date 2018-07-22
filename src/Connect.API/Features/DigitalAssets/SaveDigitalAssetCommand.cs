@@ -23,7 +23,7 @@ namespace Connect.API.Features.DigitalAssets
 
         public class Response
         {            
-            public Guid DigitalAssetId { get; set; }
+            public System.Guid DigitalAssetId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

@@ -4,7 +4,7 @@ namespace Connect.API.Features.CardLayouts
 {
     public class CardLayoutDto
     {        
-        public int CardLayoutId { get; set; }
+        public System.Guid CardLayoutId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 

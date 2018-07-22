@@ -12,12 +12,12 @@ namespace Connect.API.Features.Conversations
         {
             public Validator()
             {
-                RuleFor(request => request.ConversationId).NotEqual(0);
+                RuleFor(request => request.ConversationId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest<Response> {
-            public int ConversationId { get; set; }
+            public System.Guid ConversationId { get; set; }
         }
 
         public class Response

@@ -5,9 +5,9 @@ namespace Connect.Core.Models
     public class UserRole
     {
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public System.Guid UserId { get; set; }
         [ForeignKey("Role")]
-        public int RoleId { get; set; }
+        public System.Guid RoleId { get; set; }
         public User User { get; set; }
         public Role Role { get; set; }
     }

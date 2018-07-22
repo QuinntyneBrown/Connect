@@ -3,6 +3,7 @@ using Connect.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -19,7 +20,7 @@ namespace Connect.API.Sagas
 
         public class Response
         {
-            public int OrderId { get;set; }
+            public System.Guid OrderId { get;set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

@@ -5,9 +5,9 @@ namespace Connect.API.Features.Orders
 {
     public class OrderDto
     {        
-        public int OrderId { get; set; }
+        public System.Guid OrderId { get; set; }
         public string Name { get; set; }
-        public int CustomerId { get; set; }
+        public System.Guid CustomerId { get; set; }
         public ICollection<OrderItemDto> Items { get; set; }
         = new HashSet<OrderItemDto>();
 

@@ -23,7 +23,7 @@ namespace Connect.API.Features.ContactRequests
 
         public class Response
         {			
-            public int ContactRequestId { get; set; }
+            public System.Guid ContactRequestId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

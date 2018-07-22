@@ -2,9 +2,9 @@ namespace Connect.Core.Models
 {
     public class EntityVersion
     {
-        public int EntityVersionId { get; set; }
-        public int EntityId { get; set; }
-        public int Version { get; set; }
+        public System.Guid EntityVersionId { get; set; }
+        public System.Guid EntityId { get; set; }
+        public System.Guid Version { get; set; }
         public string EntityName { get; set; }
     }
 }

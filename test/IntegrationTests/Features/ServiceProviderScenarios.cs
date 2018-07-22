@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetServiceProviderByIdQuery.Response>(Get.ServiceProviderById(1));
 
-                Assert.True(response.ServiceProvider.ServiceProviderId != default(int));
+                Assert.True(response.ServiceProvider.ServiceProviderId != default(System.Guid));
             }
         }
         
@@ -66,7 +66,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetServiceProviderByIdQuery.Response>(Get.ServiceProviderById(1));
 
-                Assert.True(getByIdResponse.ServiceProvider.ServiceProviderId != default(int));
+                Assert.True(getByIdResponse.ServiceProvider.ServiceProviderId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<CreateServiceProviderCommand.Request, CreateServiceProviderCommand.Response>(Post.ServiceProviders, new CreateServiceProviderCommand.Request()
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                         ServiceProvider = getByIdResponse.ServiceProvider
                     });
 
-                Assert.True(saveResponse.ServiceProviderId != default(int));
+                Assert.True(saveResponse.ServiceProviderId != default(System.Guid));
             }
         }
         

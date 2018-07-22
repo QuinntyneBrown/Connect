@@ -22,7 +22,7 @@ namespace Connect.API.Features.Dashboards
 
         public class Response
         {            
-            public int DashboardId { get; set; }
+            public System.Guid DashboardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

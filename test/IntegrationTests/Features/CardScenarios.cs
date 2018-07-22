@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetCardByIdQuery.Response>(Get.CardById(1));
 
-                Assert.True(response.Card.CardId != default(int));
+                Assert.True(response.Card.CardId != default(System.Guid));
             }
         }
         
@@ -66,7 +66,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetCardByIdQuery.Response>(Get.CardById(1));
 
-                Assert.True(getByIdResponse.Card.CardId != default(int));
+                Assert.True(getByIdResponse.Card.CardId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<SaveCardCommand.Request, SaveCardCommand.Response>(Post.Cards, new SaveCardCommand.Request()
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                         Card = getByIdResponse.Card
                     });
 
-                Assert.True(saveResponse.CardId != default(int));
+                Assert.True(saveResponse.CardId != default(System.Guid));
             }
         }
         

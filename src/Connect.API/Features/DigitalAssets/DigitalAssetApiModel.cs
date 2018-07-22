@@ -5,7 +5,7 @@ namespace Connect.API.Features.DigitalAssets
 {
     public class DigitalAssetDto
     {        
-        public Guid DigitalAssetId { get; set; }
+        public System.Guid DigitalAssetId { get; set; }
         public string Name { get; set; }
         public string RelativePath { get { return $"api/digitalassets/serve/{DigitalAssetId}"; } }
         public byte[] Bytes { get; set; }

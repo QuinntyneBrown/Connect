@@ -26,21 +26,21 @@ namespace Connect.API.Features.Orders
                 
                 foreach (var item in request.Order.Items)
                 {
-                    int credits = default(int);
-                    switch (item.ProductId)
-                    {
-                        case (int)Credits100:
-                            credits = 100;
-                            break;
+                    //int credits = default(int);
+                    //switch (item.ProductId)
+                    //{
+                    //    case (int)Credits100:
+                    //        credits = 100;
+                    //        break;
 
-                        case (int)Credits300:
-                            credits = 300;
-                            break;
+                    //    case (int)Credits300:
+                    //        credits = 300;
+                    //        break;
 
-                        case (int)Credits750:
-                            credits = 750;
-                            break;
-                    }
+                    //    case (int)Credits750:
+                    //        credits = 750;
+                    //        break;
+                    //}
                     
                 }
                 

@@ -20,14 +20,14 @@ namespace Connect.API.Features.Profiles
 
         public class Request : IRequest<Response> {
             public string Name { get; set; }            
-            public int ProfileTypeId { get; set; }
-            public int UserId { get; set; }
+            public System.Guid ProfileTypeId { get; set; }
+            public System.Guid UserId { get; set; }
 
         }
 
         public class Response
         {			
-            public int ProfileId { get; set; }
+            public System.Guid ProfileId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -43,17 +43,17 @@ namespace Connect.API.Features.Profiles
             {
                 var profile = default(dynamic);
                 
-                if (request.ProfileTypeId == (int)ProfileTypes.Customer)
-                {
-                    profile = new Customer();
+                //if (request.ProfileTypeId == (int)ProfileTypes.Customer)
+                //{
+                //    profile = new Customer();
                     
-                    _context.Customers.Add(profile);
-                } else
-                {
-                    profile = new ServiceProvider();
+                //    _context.Customers.Add(profile);
+                //} else
+                //{
+                //    profile = new ServiceProvider();
                     
-                    _context.ServiceProviders.Add(profile);
-                }
+                //    _context.ServiceProviders.Add(profile);
+                //}
 
                 profile.UserId = request.UserId;
 

@@ -14,13 +14,13 @@ namespace Connect.API.Features.ContactRequests
         {
             public Validator()
             {
-                RuleFor(request => request.ContactRequestId).NotEqual(0);
+                RuleFor(request => request.ContactRequestId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int ContactRequestId { get; set; }
+            public System.Guid ContactRequestId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

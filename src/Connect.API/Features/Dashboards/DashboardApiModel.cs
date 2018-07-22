@@ -7,9 +7,9 @@ namespace Connect.API.Features.Dashboards
 {
     public class DashboardDto
     {        
-        public int DashboardId { get; set; }
+        public System.Guid DashboardId { get; set; }
         public string Name { get; set; }
-        public int ProfileId { get; set; }
+        public System.Guid ProfileId { get; set; }
         public ICollection<DashboardCardDto> DashboardCards { get; set; }
         = new HashSet<DashboardCardDto>();
 

@@ -13,13 +13,13 @@ namespace Connect.API.Features.Dashboards
         {
             public Validator()
             {
-                RuleFor(request => request.DashboardId).NotEqual(0);
+                RuleFor(request => request.DashboardId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int DashboardId { get; set; }
+            public System.Guid DashboardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

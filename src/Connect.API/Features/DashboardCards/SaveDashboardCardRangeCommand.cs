@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Connect.Core.Interfaces;
+using System;
 
 namespace Connect.API.Features.DashboardCards
 {
@@ -14,7 +15,7 @@ namespace Connect.API.Features.DashboardCards
 
         public class Response
         {
-            public IEnumerable<int> DashboardCardIds { get; set; }
+            public IEnumerable<Guid> DashboardCardIds { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -28,7 +29,7 @@ namespace Connect.API.Features.DashboardCards
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var dashboardCardIds = new List<int>();
+                var dashboardCardIds = new List<Guid>();
 
                 foreach(var dashboardCard in request.DashboardCards)
                 {                    

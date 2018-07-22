@@ -22,8 +22,7 @@ namespace IntegrationTests.Features
 
                 var response = await server.CreateClient()
                     .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request() {
-                        Name = "Name",
-                        ProfileTypeId = (int)ProfileTypes.Customer
+                        Name = "Name"
                     });
      
 	            var entity = context.Customers.First();
@@ -53,7 +52,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetProfileByIdQuery.Response>(Get.ProfileById(1));
 
-                Assert.True(response.Profile.ProfileTypeId != default(int));
+                Assert.True(response.Profile.ProfileTypeId != default(System.Guid));
             }
         }
         
@@ -65,7 +64,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetProfileByIdQuery.Response>(Get.ProfileById(1));
 
-                Assert.True(getByIdResponse.Profile.ProfileTypeId != default(int));
+                Assert.True(getByIdResponse.Profile.ProfileTypeId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<CreateProfileCommand.Request, CreateProfileCommand.Response>(Post.Profiles, new CreateProfileCommand.Request()
@@ -73,7 +72,7 @@ namespace IntegrationTests.Features
                         ProfileTypeId = getByIdResponse.Profile.ProfileTypeId
                     });
 
-                Assert.True(saveResponse.ProfileId != default(int));
+                Assert.True(saveResponse.ProfileId != default(System.Guid));
             }
         }
         

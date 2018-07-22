@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetCustomerByIdQuery.Response>(Get.CustomerById(1));
 
-                Assert.True(response.Customer.CustomerId != default(int));
+                Assert.True(response.Customer.CustomerId != default(System.Guid));
             }
         }
         
@@ -66,7 +66,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetCustomerByIdQuery.Response>(Get.CustomerById(1));
 
-                Assert.True(getByIdResponse.Customer.CustomerId != default(int));
+                Assert.True(getByIdResponse.Customer.CustomerId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<CreateCustomerCommand.Request, CreateCustomerCommand.Response>(Post.Customers, new CreateCustomerCommand.Request()
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                         Customer = getByIdResponse.Customer
                     });
 
-                Assert.True(saveResponse.CustomerId != default(int));
+                Assert.True(saveResponse.CustomerId != default(System.Guid));
             }
         }
         

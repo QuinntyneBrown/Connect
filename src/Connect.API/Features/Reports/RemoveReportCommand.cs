@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Connect.Core.Models;
 using Connect.Core.Interfaces;
+using System;
 
 namespace Connect.API.Features.Reports
 {
@@ -13,13 +14,13 @@ namespace Connect.API.Features.Reports
         {
             public Validator()
             {
-                RuleFor(request => request.ReportId).NotEqual(0);
+                RuleFor(request => request.ReportId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int ReportId { get; set; }
+            public System.Guid ReportId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

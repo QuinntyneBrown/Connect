@@ -1,10 +1,11 @@
 using Connect.Core.Models;
+using System;
 
 namespace Connect.API.Features.ServiceProviders
 {
     public class ServiceProviderDto
     {        
-        public int ServiceProviderId { get; set; }
+        public System.Guid ServiceProviderId { get; set; }
         public string Name { get; set; }
 
         public static ServiceProviderDto FromServiceProvider(ServiceProvider serviceProvider)

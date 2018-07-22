@@ -12,7 +12,7 @@ namespace Connect.API.Features.DigitalAssets
     public class GetDigitalAssetsByIdsQuery
     {
         public class Request : IRequest<Response> {
-            public Guid[] DigitalAssetIds { get; set; }
+            public System.Guid[] DigitalAssetIds { get; set; }
         }
 
         public class Response

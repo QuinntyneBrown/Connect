@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,63 +33,39 @@ namespace Connect.API.Features.Identity
         public class Response
         {
             public string AccessToken { get; set; }
-            public int UserId { get; set; }
+            public System.Guid UserId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IAccessTokenRepository _repository;            
-            private readonly IAppDbContext _context;
+            private readonly IEventStore _eventStore;
             private readonly IOptionsSnapshot<AuthenticationSettings> _authenticationSettings;
             private readonly IPasswordHasher _passwordHasher;
             private readonly ISecurityTokenFactory _securityTokenFactory;
   
-            public Handler(IAccessTokenRepository repository, IAppDbContext context, IOptionsSnapshot<AuthenticationSettings> authenticationSettings, IPasswordHasher passwordHasher, ISecurityTokenFactory securityTokenFactory)
+            public Handler(IAccessTokenRepository repository, IEventStore eventStore, IOptionsSnapshot<AuthenticationSettings> authenticationSettings, IPasswordHasher passwordHasher, ISecurityTokenFactory securityTokenFactory)
             {
-                _context = context;
+                _eventStore = eventStore;
                 _authenticationSettings = authenticationSettings;
                 _repository = repository;                
                 _passwordHasher = passwordHasher;
                 _securityTokenFactory = securityTokenFactory;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {                
-                var user = await _context.Users
-                    .Include(x => x.UserRoles)
-                    .ThenInclude(x => x.Role)
-                    .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
-
-                if (user == null) throw new DomainException("Invalid Username!");
-
-                if (_passwordHasher.HashPassword(user.Salt, request.Password) != user.Password)
-                    throw new DomainException("Invalid Password!");
-
-                var validAccessTokens = _repository.GetValidAccessTokens();
-
-                if (validAccessTokens.Count() >= _authenticationSettings.Value.MaximumUsers)
-                    throw new DomainException("Exceeded Maximum Users!");
-
-                if (validAccessTokens.Where(x => x.Username == request.Username).SingleOrDefault() != null)
-                    throw new DomainException("Already logged In!");
+            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
+                var user = _eventStore.Query<User>("Username", request.Username);
                 
-                var securityToken = _securityTokenFactory.Create(request.Username, user.UserRoles
-                    .Select(x => x.Role.Name)
-                    .ToList());
-                
-                _repository.Add(new AccessToken()
+                user.SignIn(_passwordHasher.HashPassword(user.Salt, request.Password));
+
+                _eventStore.Save(user);
+
+                return Task.FromResult(new Response()
                 {
-                    Value = securityToken,
-                    Username = request.Username
-                });
-
-                await _repository.SaveChangesAsync(cancellationToken);
-                
-                return new Response()
-                {
-                    AccessToken = securityToken,
+                    AccessToken = _securityTokenFactory.Create(request.Username),
                     UserId = user.UserId
-                };
+                });                
             }               
         }
     }

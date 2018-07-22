@@ -9,10 +9,10 @@ namespace Connect.Core.Models
     {
         public Order()
         {
-            OrderStatusId = (int)OrderStatuses.Started;
+
         }
 
-        public void AddOrderItem(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl)
+        public void AddOrderItem(System.Guid productId, string productName, decimal unitPrice, decimal discount, string pictureUrl)
         {            
             var orderItem = new OrderItem() {
                 ProductId = productId
@@ -23,22 +23,19 @@ namespace Connect.Core.Models
 
         public void SetAwaitingPayment()
         {            
-            OrderStatusId = (int)OrderStatuses.AwaitingPayment;
+
         }
 
         public void SetPaidStatus()
         {
-            if (OrderStatusId != (int)OrderStatuses.AwaitingPayment)
-                throw new Exception();
 
-            OrderStatusId = (int)OrderStatuses.Paid;
         }
 
 
-        public int OrderId { get; set; }
-        public int OrderStatusId { get; set; }
+        public System.Guid OrderId { get; set; }
+        public System.Guid OrderStatusId { get; set; }
         public DateTime OrderDateTime { get; set; }
-        public int CustomerId { get; set; }
+        public System.Guid CustomerId { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public Customer Customer { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }

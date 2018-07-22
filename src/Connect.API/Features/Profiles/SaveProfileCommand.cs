@@ -23,7 +23,7 @@ namespace Connect.API.Features.Profiles
 
         public class Response
         {			
-            public int ProfileId { get; set; }
+            public System.Guid ProfileId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

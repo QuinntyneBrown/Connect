@@ -12,13 +12,13 @@ namespace Connect.API.Features.Cards
         {
             public Validator()
             {
-                RuleFor(request => request.CardId).NotEqual(0);
+                RuleFor(request => request.CardId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest
         {
-            public int CardId { get; set; }
+            public System.Guid CardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>

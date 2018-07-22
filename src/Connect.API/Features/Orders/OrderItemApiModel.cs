@@ -4,7 +4,7 @@ namespace Connect.API.Features.Orders
 {
     public class OrderItemDto
     {
-        public int ProductId { get; set; }
+        public System.Guid ProductId { get; set; }
 
         public static OrderItemDto FromModel(OrderItem item)
             => new OrderItemDto()

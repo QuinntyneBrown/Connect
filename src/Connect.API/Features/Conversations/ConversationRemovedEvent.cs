@@ -10,8 +10,8 @@ namespace Connect.API.Features.Conversations
     {
         public class DomainEvent : INotification
         {
-            public DomainEvent(int conversationId) => ConversationId = conversationId;
-            public int ConversationId { get; set; }
+            public DomainEvent(System.Guid conversationId) => ConversationId = conversationId;
+            public System.Guid ConversationId { get; set; }
         }
 
         public class Handler : INotificationHandler<DomainEvent>

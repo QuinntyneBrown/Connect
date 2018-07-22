@@ -19,7 +19,7 @@ namespace IntegrationTests.Features
                         Password = "P@ssw0rd"
                     });
 
-                Assert.True(response.UserId == 2);
+
                 Assert.True(response.AccessToken != default(string));
             }
         }

@@ -10,8 +10,8 @@ namespace Connect.API.Features.Customers
     {
         public class DomainEvent : INotification
         {
-            public DomainEvent(int customerId) => CustomerId = customerId;
-            public int CustomerId { get; set; }
+            public DomainEvent(System.Guid customerId) => CustomerId = customerId;
+            public System.Guid CustomerId { get; set; }
         }
 
         public class Handler : INotificationHandler<DomainEvent>

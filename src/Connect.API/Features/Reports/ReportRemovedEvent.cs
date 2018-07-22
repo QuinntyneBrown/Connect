@@ -10,8 +10,8 @@ namespace Connect.API.Features.Reports
     {
         public class DomainEvent : INotification
         {
-            public DomainEvent(int reportId) => ReportId = reportId;
-            public int ReportId { get; set; }
+            public DomainEvent(System.Guid reportId) => ReportId = reportId;
+            public System.Guid ReportId { get; set; }
         }
 
         public class Handler : INotificationHandler<DomainEvent>

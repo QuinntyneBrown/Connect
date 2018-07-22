@@ -5,7 +5,7 @@ namespace Connect.Core.Models
 {
     public class Card: AggregateRoot
     {
-        public int CardId { get; set; }           
+        public System.Guid CardId { get; set; }           
         public string Name { get; set; }
         public string Description { get; set; }
     }

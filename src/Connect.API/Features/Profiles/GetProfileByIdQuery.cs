@@ -12,12 +12,12 @@ namespace Connect.API.Features.Profiles
         {
             public Validator()
             {
-                RuleFor(request => request.ProfileId).NotEqual(0);
+                RuleFor(request => request.ProfileId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest<Response> {
-            public int ProfileId { get; set; }
+            public System.Guid ProfileId { get; set; }
         }
 
         public class Response

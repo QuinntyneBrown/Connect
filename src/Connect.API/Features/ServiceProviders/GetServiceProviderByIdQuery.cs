@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Connect.Core.Interfaces;
 using FluentValidation;
+using System;
 
 namespace Connect.API.Features.ServiceProviders
 {
@@ -12,12 +13,12 @@ namespace Connect.API.Features.ServiceProviders
         {
             public Validator()
             {
-                RuleFor(request => request.ServiceProviderId).NotEqual(0);
+                RuleFor(request => request.ServiceProviderId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest<Response> {
-            public int ServiceProviderId { get; set; }
+            public System.Guid ServiceProviderId { get; set; }
         }
 
         public class Response

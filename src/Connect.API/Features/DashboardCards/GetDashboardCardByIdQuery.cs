@@ -12,12 +12,12 @@ namespace Connect.API.Features.DashboardCards
         {
             public Validator()
             {
-                RuleFor(request => request.DashboardCardId).NotEqual(0);
+                RuleFor(request => request.DashboardCardId).NotEqual(default(System.Guid));
             }
         }
 
         public class Request : IRequest<Response> {
-            public int DashboardCardId { get; set; }
+            public System.Guid DashboardCardId { get; set; }
         }
 
         public class Response

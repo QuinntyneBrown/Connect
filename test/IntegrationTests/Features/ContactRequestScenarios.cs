@@ -54,7 +54,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetContactRequestByIdQuery.Response>(Get.ContactRequestById(1));
 
-                Assert.True(response.ContactRequest.ContactRequestId != default(int));
+                Assert.True(response.ContactRequest.ContactRequestId != default(System.Guid));
             }
         }
         
@@ -66,7 +66,7 @@ namespace IntegrationTests.Features
                 var getByIdResponse = await server.CreateClient()
                     .GetAsync<GetContactRequestByIdQuery.Response>(Get.ContactRequestById(1));
 
-                Assert.True(getByIdResponse.ContactRequest.ContactRequestId != default(int));
+                Assert.True(getByIdResponse.ContactRequest.ContactRequestId != default(System.Guid));
 
                 var saveResponse = await server.CreateClient()
                     .PostAsAsync<CreateContactRequestCommand.Request, CreateContactRequestCommand.Response>(Post.ContactRequests, new CreateContactRequestCommand.Request()
@@ -74,7 +74,7 @@ namespace IntegrationTests.Features
                         ContactRequest = getByIdResponse.ContactRequest
                     });
 
-                Assert.True(saveResponse.ContactRequestId != default(int));
+                Assert.True(saveResponse.ContactRequestId != default(System.Guid));
             }
         }
         

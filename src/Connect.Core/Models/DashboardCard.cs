@@ -5,9 +5,9 @@ namespace Connect.Core.Models
 {
     public class DashboardCard: AggregateRoot
     {
-        public int DashboardCardId { get; set; }
+        public System.Guid DashboardCardId { get; set; }
         [ForeignKey("Dashboard")]
-        public int DashboardId { get; set; }
+        public System.Guid DashboardId { get; set; }
         [ForeignKey("Card")]
         public int? CardId { get; set; }
         [ForeignKey("CardLayout")]

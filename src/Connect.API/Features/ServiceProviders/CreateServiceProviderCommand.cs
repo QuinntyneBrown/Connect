@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
+using System;
 
 namespace Connect.API.Features.ServiceProviders
 {
@@ -23,7 +24,7 @@ namespace Connect.API.Features.ServiceProviders
 
         public class Response
         {			
-            public int ServiceProviderId { get; set; }
+            public System.Guid ServiceProviderId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

@@ -22,7 +22,7 @@ namespace Connect.API.Features.Customers
 
         public class Response
         {			
-            public int CustomerId { get; set; }
+            public System.Guid CustomerId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

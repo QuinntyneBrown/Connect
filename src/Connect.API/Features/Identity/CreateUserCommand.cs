@@ -2,6 +2,8 @@ using Connect.Core.Identity;
 using Connect.Core.Interfaces;
 using Connect.Core.Models;
 using MediatR;
+using System;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,30 +19,29 @@ namespace Connect.API.Features.Identity
 
         public class Response
         {
-            public int UserId { get;set; }
+            public System.Guid UserId { get;set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            public IAppDbContext _context { get; set; }
+            public IEventStore _eventStore { get; set; }
             private readonly IPasswordHasher _passwordHasher;
-            public Handler(IAppDbContext context, IPasswordHasher passwordHasher) {
-                _context = context;
+            public Handler(IEventStore eventStore, IPasswordHasher passwordHasher) {
+                _eventStore = eventStore;
                 _passwordHasher = passwordHasher;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var user = new User()
+                var salt = new byte[128 / 8];
+                using (var rng = RandomNumberGenerator.Create())
                 {
-                    Username = request.Username
-                };
+                    rng.GetBytes(salt);
+                }
 
-                _context.Users.Add(user);
-                
-                user.Password = _passwordHasher.HashPassword(user.Salt, request.Password);
-                
-                await _context.SaveChangesAsync(cancellationToken);
+                var user = new User(request.Username, salt, _passwordHasher.HashPassword(salt, request.Password));
+
+                _eventStore.Save(user);
 
                 return new Response()
                 {
